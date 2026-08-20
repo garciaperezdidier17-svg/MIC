@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         failOnWarning="false"
+         failOnNotice="false">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory suffix=".php">config</directory>
+            <directory suffix=".php">includes</directory>
+            <directory suffix=".php">modulo_dashboard</directory>
+            <directory suffix=".php">modulo_inventario_general</directory>
+            <directory suffix=".php">modulo_prestamos</directory>
+        </include>
+    </source>
+
+    <php>
+        <env name="MIC_APP_ENV" value="testing"/>
+        <env name="MIC_TEST_DB_HOST" value="127.0.0.1"/>
+        <env name="MIC_TEST_DB_NAME" value="mic_test"/>
+        <env name="MIC_TEST_DB_USER" value="root"/>
+        <env name="MIC_TEST_DB_PASS" value=""/>
+    </php>
+</phpunit>

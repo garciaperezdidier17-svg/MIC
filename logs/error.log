@@ -1,0 +1,238 @@
+[2026-06-03 01:43:55] PHP Error [8192]: round(): Passing null to parameter #1 ($num) of type int|float is deprecated en C:\xampp\htdocs\mic\feedback.php línea 56
+[2026-06-03 01:43:55] PHP Error [8192]: round(): Passing null to parameter #1 ($num) of type int|float is deprecated en C:\xampp\htdocs\mic\feedback.php línea 56
+[2026-06-03 01:45:24] PHP Error [8192]: round(): Passing null to parameter #1 ($num) of type int|float is deprecated en C:\xampp\htdocs\mic\feedback.php línea 56
+[2026-06-03 02:21:17] PHP Error [8192]: round(): Passing null to parameter #1 ($num) of type int|float is deprecated en C:\xampp\htdocs\mic\feedback.php línea 56
+[2026-06-03 02:21:24] PHP Error [8192]: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated en C:\xampp\htdocs\mic\views\usuarios_view.php línea 43
+[2026-06-03 02:21:29] PHP Error [8192]: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated en C:\xampp\htdocs\mic\views\usuarios_view.php línea 43
+[2026-06-03 02:46:38] PHP Error [8192]: round(): Passing null to parameter #1 ($num) of type int|float is deprecated en C:\xampp\htdocs\mic\feedback.php línea 56
+[2026-06-03 04:02:04] PHP Error [8192]: round(): Passing null to parameter #1 ($num) of type int|float is deprecated en C:\xampp\htdocs\mic\feedback.php línea 56
+[2026-06-03 04:02:14] PHP Error [8192]: round(): Passing null to parameter #1 ($num) of type int|float is deprecated en C:\xampp\htdocs\mic\feedback.php línea 56
+[2026-06-03 04:02:18] PHP Error [8192]: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated en C:\xampp\htdocs\mic\views\usuarios_view.php línea 43
+[2026-06-05 21:22:10] PHP Error [8192]: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated en C:\xampp\htdocs\mic\views\usuarios_view.php línea 43
+[2026-06-05 22:43:07] PHP Warning [2]: require_once(includes/head.php): Failed to open stream: No such file or directory en C:\xampp\htdocs\mic\views\solicitudes_view.php línea 7
+[2026-06-05 22:43:14] PHP Warning [2]: require_once(includes/head.php): Failed to open stream: No such file or directory en C:\xampp\htdocs\mic\views\prestamos_view.php línea 7
+[2026-06-05 22:43:20] PHP Warning [2]: require_once(includes/head.php): Failed to open stream: No such file or directory en C:\xampp\htdocs\mic\views\prestamos_view.php línea 7
+[2026-06-05 22:44:30] PHP Warning [2]: require_once(includes/head.php): Failed to open stream: No such file or directory en C:\xampp\htdocs\mic\views\solicitudes_view.php línea 7
+[2026-06-05 22:49:36] PHP Warning [2]: require_once(includes/head.php): Failed to open stream: No such file or directory en C:\xampp\htdocs\mic\views\prestamos_view.php línea 7
+[2026-06-12 21:28:13] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-06-12 21:28:13] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-07-08 21:14:13] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-07-08 21:14:13] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-07-15 23:34:59] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-07-15 23:34:59] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-07-15 23:35:05] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-07-15 23:35:05] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-07-15 23:35:10] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-07-15 23:35:10] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-07-15 23:35:18] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-07-15 23:35:18] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-07-15 23:37:42] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-07-15 23:37:42] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-10 23:41:12] PHP Warning [2]: mkdir(): File exists en C:\Users\DIDIER GARCIA\AppData\Local\Temp\opencode\test_acta_real.php línea 20
+[2026-08-10 23:58:10] Error en acciones_elemento (reasignar): El responsable seleccionado no pertenece a la sede del elemento
+[2026-08-10 23:58:10] Error en acciones_elemento (cambiar_ubicacion): La ubicación seleccionada no pertenece a la sede elegida
+[2026-08-10 23:58:10] Error en acciones_elemento (cambiar_ubicacion): La ubicación seleccionada no pertenece a la sede elegida
+[2026-08-10 23:59:06] Intento de CSRF detectado
+[2026-08-11 21:29:09] test de log
+[2026-08-14 00:58:24] PHP Warning [2]: Undefined variable $catalogosUbicaciones en C:\xampp\htdocs\mic\modulo_inventario_general\actas.php línea 58
+[2026-08-14 01:01:53] PHP Warning [2]: Undefined array key "id" en C:\xampp\htdocs\mic\modulo_inventario_general\ver_acta.php línea 23
+[2026-08-14 01:01:53] PHP Warning [2]: Cannot modify header information - headers already sent by (output started at C:\Users\DIDIER GARCIA\AppData\Local\Temp\test_ver_acta2.php:1) en C:\xampp\htdocs\mic\modulo_inventario_general\ver_acta.php línea 25
+[2026-08-14 01:01:53] PHP Warning [2]: Cannot modify header information - headers already sent by (output started at C:\Users\DIDIER GARCIA\AppData\Local\Temp\test_ver_acta2.php:1) en C:\xampp\htdocs\mic\modulo_inventario_general\ver_acta.php línea 26
+[2026-08-14 01:01:53] PHP Warning [2]: Cannot modify header information - headers already sent by (output started at C:\Users\DIDIER GARCIA\AppData\Local\Temp\test_ver_acta2.php:1) en C:\xampp\htdocs\mic\modulo_inventario_general\ver_acta.php línea 27
+[2026-08-14 01:27:00] PHP Notice [8]: Only variables should be passed by reference en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 290
+[2026-08-14 01:27:03] PHP Notice [8]: Only variables should be passed by reference en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 354
+[2026-08-14 01:27:04] PHP Notice [8]: Only variables should be passed by reference en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 363
+[2026-08-14 01:27:06] PHP Warning [2]: Undefined array key 0 en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 443
+[2026-08-14 01:27:06] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 443
+[2026-08-14 01:27:06] PHP Warning [2]: Undefined array key 0 en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 444
+[2026-08-14 01:27:06] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 444
+[2026-08-14 01:28:26] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_toma_fisica\helpers_toma_fisica.php línea 618
+[2026-08-14 01:28:26] PHP Warning [2]: copy(C:\xampp\htdocs\mic\modulo_toma_fisica/../uploads/evidencias/ev_20260814_012826_5fd20eafd90ae368.): Failed to open stream: Permission denied en C:\xampp\htdocs\mic\modulo_toma_fisica\helpers_toma_fisica.php línea 624
+[2026-08-14 01:28:27] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_toma_fisica\helpers_toma_fisica.php línea 618
+[2026-08-14 01:28:27] PHP Warning [2]: copy(C:\xampp\htdocs\mic\modulo_toma_fisica/../uploads/evidencias/ev_20260814_012827_000cc75b55614fa1.): Failed to open stream: Permission denied en C:\xampp\htdocs\mic\modulo_toma_fisica\helpers_toma_fisica.php línea 624
+[2026-08-14 01:28:27] PHP Warning [2]: Undefined array key 0 en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 446
+[2026-08-14 01:28:27] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 446
+[2026-08-14 01:28:27] PHP Warning [2]: Undefined array key 0 en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 447
+[2026-08-14 01:28:27] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\tests\Integration\TomaFisicaIntegracionTest.php línea 447
+[2026-08-14 01:29:36] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 01:29:49] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:29:49] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:29:49] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:29:50] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:30:37] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 01:30:51] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:30:51] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:30:51] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:30:52] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:34:29] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 01:34:42] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:34:42] PHP Warning [2]: copy(C:\xampp\htdocs\mic\modulo_inventario_general/../uploads/documentos/doc_99999_798af9b6927b.): Failed to open stream: Permission denied en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 110
+[2026-08-14 01:34:43] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:34:43] PHP Warning [2]: copy(C:\xampp\htdocs\mic\modulo_inventario_general/../uploads/documentos/doc_99999_d0e658d36b0f.): Failed to open stream: Permission denied en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 110
+[2026-08-14 01:34:43] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:34:43] PHP Warning [2]: copy(C:\xampp\htdocs\mic\modulo_inventario_general/../uploads/documentos/doc_99999_46666acb8c7d.): Failed to open stream: Permission denied en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 110
+[2026-08-14 01:34:44] PHP Warning [2]: Undefined array key "ext" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 104
+[2026-08-14 01:34:44] PHP Warning [2]: copy(C:\xampp\htdocs\mic\modulo_inventario_general/../uploads/documentos/doc_99999_df73138e3fe4.): Failed to open stream: Permission denied en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_inventario.php línea 110
+[2026-08-14 01:36:01] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 01:37:15] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 02:17:38] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 02:20:05] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 222
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 335
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 335
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 340
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 341
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 355
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 355
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 356
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "profesor_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 357
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 380
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "profesor_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 02:20:05] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 335
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 335
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 340
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 341
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 349
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 355
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 355
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "sede_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 356
+[2026-08-14 02:20:05] PHP Warning [2]: Undefined array key "profesor_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 357
+[2026-08-14 02:20:18] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 222
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 335
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 335
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 340
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 341
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 355
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 355
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 356
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "profesor_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 357
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 380
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "profesor_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 02:20:19] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 329
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 335
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 335
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 340
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 341
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 349
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 355
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "ubic_codigo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 355
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "sede_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 356
+[2026-08-14 02:20:19] PHP Warning [2]: Undefined array key "profesor_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 357
+[2026-08-14 02:22:23] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:22:23] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:22:23] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:22:23] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:22:24] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:22:24] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 02:22:41] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:22:41] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:22:41] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:22:41] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:22:42] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:22:42] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 02:23:30] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:23:30] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:23:30] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 02:23:58] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 02:24:01] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:24:01] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:24:01] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 02:26:57] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 02:27:00] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:27:01] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:27:01] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 02:29:21] Intento de CSRF detectado
+[2026-08-14 02:30:16] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:30:17] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:31:07] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:31:08] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:31:50] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:31:50] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:31:56] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:33:38] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 02:33:42] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:33:43] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:33:43] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 02:36:21] Intento de CSRF detectado
+[2026-08-14 02:36:25] Intento de CSRF detectado
+[2026-08-14 02:36:33] Intento de CSRF detectado
+[2026-08-14 02:36:41] Intento de CSRF detectado
+[2026-08-14 02:36:47] Intento de CSRF detectado
+[2026-08-14 02:36:52] Intento de CSRF detectado
+[2026-08-14 02:42:37] Intento de CSRF detectado
+[2026-08-14 02:45:39] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-14 02:45:43] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-14 02:45:44] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-14 02:45:44] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-14 21:09:32] Toma física - error en acción 'iniciar_toma': La sede seleccionada no existe
+[2026-08-15 00:50:42] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-08-15 00:50:42] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-15 00:50:46] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-08-15 00:50:46] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-15 00:50:50] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-08-15 00:50:50] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-15 00:50:54] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-08-15 00:50:54] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-15 00:50:58] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-08-15 00:50:58] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-15 02:51:38] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-15 02:51:40] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-15 02:51:41] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 02:51:41] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-15 03:10:23] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-15 03:10:27] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-15 03:10:27] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 03:10:27] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-15 03:14:36] Catálogos - error en acción 'crear_categoria': Ya existe una categoría con ese nombre
+[2026-08-15 03:15:04] Catálogos - error en acción 'crear_categoria': Ya existe una categoría con ese nombre
+[2026-08-15 03:15:19] Catálogos - error en acción 'crear_categoria': Ya existe una categoría con ese nombre
+[2026-08-15 03:16:57] Catálogos - error en acción 'crear_categoria': Ya existe una categoría con ese nombre
+[2026-08-15 04:29:32] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 04:29:38] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 04:29:38] PHP Warning [2]: Undefined array key 0 en C:\xampp\htdocs\mic\tests\MICUnitTest.php línea 1151
+[2026-08-15 04:29:38] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\tests\MICUnitTest.php línea 1151
+[2026-08-15 04:29:38] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 04:29:38] PHP Warning [2]: Undefined array key 0 en C:\xampp\htdocs\mic\tests\MICUnitTest.php línea 1173
+[2026-08-15 04:29:38] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\tests\MICUnitTest.php línea 1173
+[2026-08-15 04:29:38] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\tests\MICUnitTest.php línea 1173
+[2026-08-15 04:29:39] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 04:29:39] PHP Warning [2]: Undefined array key 0 en C:\xampp\htdocs\mic\tests\MICUnitTest.php línea 1222
+[2026-08-15 04:29:39] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\tests\MICUnitTest.php línea 1222
+[2026-08-15 04:29:40] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 04:29:40] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 04:29:40] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 04:29:43] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 04:29:51] PHP Warning [2]: Undefined array key "valor_compra" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_actas.php línea 88
+[2026-08-15 04:29:55] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-15 04:30:00] Intento de CSRF detectado
+[2026-08-15 17:21:40] PHP Warning [2]: Undefined array key "sede_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 388
+[2026-08-15 17:21:41] PHP Warning [2]: Undefined array key "sede_id" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 412
+[2026-08-15 17:26:11] PHP Warning [2]: Trying to access array offset on value of type null en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 254
+[2026-08-15 17:26:13] Intento de CSRF detectado
+[2026-08-15 17:26:54] Intento de CSRF detectado
+[2026-08-15 17:27:30] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-15 17:27:32] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-08-15 17:27:32] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\mic\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-08-15 17:34:47] Intento de CSRF detectado
+[2026-08-20 22:17:59] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-08-20 22:17:59] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.

@@ -1,0 +1,7 @@
+# No permitir ejecutar archivos subidos
+<FilesMatch "\.(php|php\d|phtml|pht|phar|pl|py|cgi|sh)$">
+    Require all denied
+</FilesMatch>
+Options -ExecCGI -Indexes
+RemoveHandler .php .phtml .phar
+RemoveType .php .phtml .phar
