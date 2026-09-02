@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 if (!estaLogueado()) { header('Location: ../index.php'); exit; }
 if (!esAdmin()) { header('Location: ../modulo_prestamos/solicitudes.php'); exit; }
 
-$tablasPermitidas = ['equipos','prestamos','usuarios','solicitudes','inventario_general','auditoria','movimientos_activos','cambios_responsables','cambios_ubicacion','importaciones'];
+$tablasPermitidas = ['equipos','prestamos','usuarios','solicitudes','inventario_general','auditoria','movimientos_activos','cambios_responsables','cambios_ubicacion','importaciones','prestamos_activos','prestamos_vencidos','prestamos_devueltos','elementos_mas_prestados','prestamos_por_sede'];
 
 $consultas = [
     'equipos' => [
@@ -78,6 +78,49 @@ $consultas = [
         'headers' => ['ID','Fecha','Usuario','Descripción','Registros Válidos','Creados con Éxito','Archivo'],
         'widths' => [6,18,18,60,16,16,24],
         'json_cols' => ['datos_nuevos' => ['validos', 'creados', 'archivo']],
+    ],
+    'prestamos_activos' => [
+        'titulo' => 'Préstamos Activos',
+        'sql' => "SELECT p.id, CONCAT(COALESCE(pr.nombre,''),' ',COALESCE(pr.apellido,'')) as responsable, s.nombre as sede, p.fecha_prestamo, p.fecha_devolucion_esperada, p.estado
+                  FROM prestamos p LEFT JOIN profesores pr ON p.id_profesor=pr.id LEFT JOIN sedes s ON p.id_sede=s.id
+                  WHERE p.estado='activo' ORDER BY p.fecha_prestamo DESC",
+        'headers' => ['ID','Responsable','Sede','Fecha Préstamo','Devolución Esperada','Estado'],
+        'widths' => [6,25,18,16,18,12],
+    ],
+    'prestamos_vencidos' => [
+        'titulo' => 'Préstamos Vencidos',
+        'sql' => "SELECT p.id, CONCAT(COALESCE(pr.nombre,''),' ',COALESCE(pr.apellido,'')) as responsable, s.nombre as sede, p.fecha_prestamo, p.fecha_devolucion_esperada, p.estado
+                  FROM prestamos p LEFT JOIN profesores pr ON p.id_profesor=pr.id LEFT JOIN sedes s ON p.id_sede=s.id
+                  WHERE p.estado='vencido' ORDER BY p.fecha_devolucion_esperada ASC",
+        'headers' => ['ID','Responsable','Sede','Fecha Préstamo','Devolución Esperada','Estado'],
+        'widths' => [6,25,18,16,18,12],
+    ],
+    'prestamos_devueltos' => [
+        'titulo' => 'Préstamos Devueltos',
+        'sql' => "SELECT p.id, CONCAT(COALESCE(pr.nombre,''),' ',COALESCE(pr.apellido,'')) as responsable, s.nombre as sede, p.fecha_prestamo, p.fecha_devolucion_esperada, p.fecha_devolucion_real, p.estado_devolucion
+                  FROM prestamos p LEFT JOIN profesores pr ON p.id_profesor=pr.id LEFT JOIN sedes s ON p.id_sede=s.id
+                  WHERE p.estado='devuelto' ORDER BY p.fecha_devolucion_real DESC",
+        'headers' => ['ID','Responsable','Sede','Fecha Préstamo','Devolución Esperada','Devolución Real','Estado Devolución'],
+        'widths' => [6,25,18,16,18,18,16],
+    ],
+    'elementos_mas_prestados' => [
+        'titulo' => 'Elementos Más Prestados',
+        'sql' => "SELECT ig.nombre, ig.tipo, ig.codigo_interno, COUNT(pe.id) as veces_prestado
+                  FROM prestamo_elementos pe JOIN inventario_general ig ON pe.id_elemento=ig.id
+                  GROUP BY ig.id ORDER BY veces_prestado DESC LIMIT 20",
+        'headers' => ['Elemento','Tipo','Código','Veces Prestado'],
+        'widths' => [28,20,14,16],
+    ],
+    'prestamos_por_sede' => [
+        'titulo' => 'Préstamos por Sede',
+        'sql' => "SELECT s.nombre as sede, COUNT(p.id) as total,
+                         SUM(CASE WHEN p.estado='activo' THEN 1 ELSE 0 END) as activos,
+                         SUM(CASE WHEN p.estado='vencido' THEN 1 ELSE 0 END) as vencidos,
+                         SUM(CASE WHEN p.estado='devuelto' THEN 1 ELSE 0 END) as devueltos
+                  FROM prestamos p LEFT JOIN sedes s ON p.id_sede=s.id
+                  GROUP BY p.id_sede ORDER BY total DESC",
+        'headers' => ['Sede','Total','Activos','Vencidos','Devueltos'],
+        'widths' => [24,10,10,10,10],
     ],
 ];
 

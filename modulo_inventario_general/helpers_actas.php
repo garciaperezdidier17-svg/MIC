@@ -125,3 +125,57 @@ function construirActaHTML($institucion, $profesor, $sedeNombre, $elementos, $el
     $html .= '</body></html>';
     return $html;
 }
+
+function construirActaBajaHTML($institucion, $elInfo, $datosBaja, $logoPath) {
+    $html = '<html><head><meta charset="utf-8"><style>
+        body { font-family: Helvetica, Arial, sans-serif; font-size: 10pt; color: #1e293b; }
+        .encabezado { width: 100%; border-bottom: 3px solid #1a237e; padding-bottom: 10px; margin-bottom: 14px; }
+        .encabezado table { width: 100%; }
+        .logo { width: 70px; }
+        .inst-nombre { font-size: 15pt; font-weight: bold; color: #1a237e; }
+        .inst-codigo { font-size: 9pt; color: #555; }
+        h1.titulo { font-size: 13pt; text-align: center; color: #1a237e; margin: 18px 0 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .subtitulo { text-align: center; font-size: 9pt; color: #555; margin-bottom: 18px; }
+        .seccion { background: #1a237e; color: #fff; font-weight: bold; font-size: 10pt; padding: 4px 8px; margin: 14px 0 8px; }
+        .datos td { padding: 4px 6px; vertical-align: top; }
+        .etiqueta { color: #64748b; font-size: 8.5pt; width: 130px; font-weight:bold;}
+        .firmas { margin-top: 50px; width: 100%; }
+        .firmas td { width: 100%; text-align: center; font-size: 9pt; }
+        .firma-linea { border-top: 1px solid #333; margin-top: 40px; padding-top: 4px; display:inline-block; width:250px;}
+        .footer { margin-top: 30px; font-size: 7.5pt; color: #94a3b8; text-align: center; }
+    </style></head><body>';
+
+    $html .= '<div class="encabezado"><table><tr>';
+    if ($logoPath) { $html .= '<td style="width:80px;"><img class="logo" src="' . $logoPath . '"></td>'; }
+    $html .= '<td><div class="inst-nombre">' . htmlspecialchars($institucion['nombre']) . '</div>';
+    $html .= '<div class="inst-codigo">Código de la institución: ' . htmlspecialchars($institucion['codigo']) . '</div></td>';
+    $html .= '</tr></table></div>';
+
+    $html .= '<h1 class="titulo">Acta de Baja de Activo</h1>';
+    $html .= '<div class="subtitulo">Documento generado por el Sistema de Inventario y Control (MIC) — ' . date('d/m/Y H:i') . '</div>';
+
+    $html .= '<div class="seccion">DATOS DEL ACTIVO</div>';
+    $html .= '<table class="datos">';
+    $html .= '<tr><td class="etiqueta">Código:</td><td>' . htmlspecialchars($elInfo['codigo_interno'] ?? ('#' . $elInfo['id'])) . '</td></tr>';
+    $html .= '<tr><td class="etiqueta">Elemento:</td><td>' . htmlspecialchars($elInfo['nombre']) . '</td></tr>';
+    $html .= '<tr><td class="etiqueta">Marca:</td><td>' . htmlspecialchars($elInfo['marca'] ?? 'No disponible') . '</td></tr>';
+    $html .= '<tr><td class="etiqueta">Serial:</td><td>' . htmlspecialchars($elInfo['numero_serie'] ?? 'No disponible') . '</td></tr>';
+    $html .= '<tr><td class="etiqueta">Estado previo:</td><td>' . htmlspecialchars(ucfirst($elInfo['estado'] ?? '')) . '</td></tr>';
+    $html .= '</table>';
+
+    $html .= '<div class="seccion">DATOS DE LA BAJA</div>';
+    $html .= '<table class="datos">';
+    $html .= '<tr><td class="etiqueta">Motivo de la baja:</td><td>' . htmlspecialchars($datosBaja['motivo']) . '</td></tr>';
+    $html .= '<tr><td class="etiqueta">Fecha de baja:</td><td>' . date('d/m/Y', strtotime($datosBaja['fecha'])) . '</td></tr>';
+    $html .= '<tr><td class="etiqueta">Valor residual:</td><td>' . ($datosBaja['valor_residual'] ? '$' . number_format((float)$datosBaja['valor_residual'], 0) : 'N/A') . '</td></tr>';
+    $html .= '<tr><td class="etiqueta">Observaciones:</td><td>' . htmlspecialchars($datosBaja['observaciones'] ?: 'Ninguna') . '</td></tr>';
+    $html .= '</table>';
+
+    $html .= '<table class="firmas"><tr>';
+    $html .= '<td><div class="firma-linea">Administrador del inventario<br>Autoriza la baja</div></td>';
+    $html .= '</tr></table>';
+
+    $html .= '<div class="footer">Sistema MIC — ' . htmlspecialchars($institucion['nombre']) . ' — Documento generado el ' . date('d/m/Y H:i:s') . '</div>';
+    $html .= '</body></html>';
+    return $html;
+}

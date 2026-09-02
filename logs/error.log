@@ -236,3 +236,53 @@
 [2026-08-15 17:34:47] Intento de CSRF detectado
 [2026-08-20 22:17:59] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
 [2026-08-20 22:17:59] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-28 19:15:58] Toma física - error en acción 'iniciar_toma': La sede seleccionada no existe
+[2026-08-28 21:00:21] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-08-28 21:00:21] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-28 21:13:36] Error de conexión BD: SQLSTATE[HY000] [2006] MySQL server has gone away
+[2026-08-28 21:13:36] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-28 21:13:36] Error de conexión BD: SQLSTATE[HY000] [2006] MySQL server has gone away
+[2026-08-28 21:13:36] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-28 21:38:19] PHP Warning [2]: require_once(../includes/head.php): Failed to open stream: No such file or directory en C:\xampp\htdocs\MIC\views\solicitudes_view.php línea 3
+[2026-08-29 01:19:42] Error de conexión BD: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[2026-08-29 01:19:42] Error de Conexión: No se pudo conectar a la base de datos. Por favor intenta más tarde o contacta al administrador.
+[2026-08-29 04:16:08] PHP Warning [2]: Undefined array key "proximos_vencer" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 311
+[2026-08-29 04:16:08] PHP Warning [2]: Undefined array key "pendientes_devolucion" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 325
+[2026-08-29 04:17:35] PHP Warning [2]: Undefined array key "proximos_vencer" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 311
+[2026-08-29 04:17:35] PHP Warning [2]: Undefined array key "pendientes_devolucion" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 325
+[2026-08-29 04:18:11] PHP Warning [2]: Undefined array key "proximos_vencer" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 311
+[2026-08-29 04:18:11] PHP Warning [2]: Undefined array key "pendientes_devolucion" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 325
+[2026-08-29 04:21:05] registrarDevolucion: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_devolucion' in 'field list'
+[2026-08-29 04:21:05] registrarDevolucion: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_devolucion' in 'field list'
+[2026-08-29 04:22:21] PHP Warning [2]: Undefined array key "proximos_vencer" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 311
+[2026-08-29 04:22:21] PHP Warning [2]: Undefined array key "pendientes_devolucion" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 325
+[2026-08-29 04:22:49] PHP Warning [2]: Undefined array key "proximos_vencer" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 311
+[2026-08-29 04:22:49] PHP Warning [2]: Undefined array key "pendientes_devolucion" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 325
+[2026-08-29 04:23:00] registrarDevolucion: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_devolucion' in 'field list'
+[2026-08-29 04:23:01] registrarDevolucion: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fecha_devolucion' in 'field list'
+[2026-08-29 04:24:39] PHP Warning [2]: Undefined array key "motivo" en C:\xampp\htdocs\MIC\modulo_prestamos\helpers_actas.php línea 39
+[2026-08-29 04:24:39] PHP Error [8192]: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated en C:\xampp\htdocs\MIC\modulo_prestamos\helpers_actas.php línea 39
+[2026-08-29 04:25:36] registrarDevolucion: No se procesó ningún elemento válido.
+[2026-08-29 04:28:43] registrarDevolucion: No se procesó ningún elemento válido.
+[2026-08-29 04:28:43] registrarDevolucion: No se procesó ningún elemento válido.
+[2026-08-29 04:29:41] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-08-29 04:31:10] PHP Warning [2]: Undefined array key "proximos_vencer" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 311
+[2026-08-29 04:31:10] PHP Warning [2]: Undefined array key "pendientes_devolucion" en C:\xampp\htdocs\MIC\modulo_dashboard\index.php línea 325
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:05:52] PHP Warning [2]: Undefined array key "HTTP_HOST" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_inventario.php línea 137
+[2026-09-02 23:07:16] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
+[2026-09-02 23:07:19] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
+[2026-09-02 23:07:19] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_importacion.php línea 381

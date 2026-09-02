@@ -176,10 +176,10 @@ final class TestDatabase
         $pdo = self::pdo();
         $tablas = [
             'auditoria', 'elemento_historial', 'acta_elementos', 'actas', 'inventario_general',
-            'proveedores', 'profesores', 'mantenimiento', 'prestamos', 'solicitudes',
+            'proveedores', 'profesores', 'mantenimiento', 'prestamos', 'prestamo_elementos', 'solicitudes', 'solicitud_elementos',
             'movimientos', 'equipos', 'notificaciones', 'feedback', 'inventario_dañados',
             'estudiantes', 'usuarios', 'tomas_fisicas_detalle', 'tomas_fisicas',
-            'evidencias', 'novedades', 'bajas',
+            'evidencias', 'novedades', 'bajas', 'prestamo_recordatorios'
         ];
         $pdo->exec('SET FOREIGN_KEY_CHECKS=0');
         foreach ($tablas as $t) {

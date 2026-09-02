@@ -258,6 +258,39 @@ try {
         redirigirFicha($conn, $elementoId, 'Mantenimiento finalizado correctamente');
     }
 
+    if ($accion === 'alternar_prestamo') {
+        $elementoId = (int)($_POST['elemento_id'] ?? 0);
+        if (!$elementoId) {
+            throw new RuntimeException('Datos incompletos para alternar la disponibilidad de préstamo');
+        }
+        $el = $conn->prepare("SELECT id, codigo_interno, disponible_para_prestamo FROM inventario_general WHERE id=? AND activo=1");
+        $el->execute([$elementoId]);
+        $elemento = $el->fetch(PDO::FETCH_ASSOC);
+        if (!$elemento) {
+            throw new RuntimeException('El elemento no existe');
+        }
+        $nuevoValor = (int)$elemento['disponible_para_prestamo'] === 1 ? 0 : 1;
+        $conn->prepare("UPDATE inventario_general SET disponible_para_prestamo=? WHERE id=?")
+            ->execute([$nuevoValor, $elementoId]);
+        $texto = $nuevoValor === 1 ? 'habilitado' : 'inhabilitado';
+        registrarEventoHistorial(
+            $conn, $elementoId, 'disponibilidad_prestamo',
+            'Elemento ' . $texto . ' para préstamo',
+            ['disponible_para_prestamo' => (int)$elemento['disponible_para_prestamo']],
+            ['disponible_para_prestamo' => $nuevoValor],
+            (int)$_SESSION['user_id'],
+            null
+        );
+        registrarAuditoria(
+            $conn, 'alternar_prestamo', 'inventario', 'elemento', $elementoId,
+            'Elemento ' . $texto . ' para préstamo (' . ($elemento['codigo_interno'] ?: '#' . $elementoId) . ')',
+            ['disponible_para_prestamo' => (int)$elemento['disponible_para_prestamo']],
+            ['disponible_para_prestamo' => $nuevoValor]
+        );
+        $conn->commit();
+        redirigirFicha($conn, $elementoId, 'Elemento ' . $texto . ' para préstamo correctamente');
+    }
+
     throw new RuntimeException('Acción no válida');
 } catch (Throwable $e) {
     if ($conn->inTransaction()) { $conn->rollBack(); }

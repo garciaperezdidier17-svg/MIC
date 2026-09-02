@@ -1244,6 +1244,8 @@ a { text-decoration: none; color: inherit; }
 .yellow-gradient { background: linear-gradient(135deg, #d97706, #f59e0b); }
 .red-gradient { background: linear-gradient(135deg, #dc2626, #ef4444); }
 .purple-gradient { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
+.orange-gradient { background: linear-gradient(135deg, #ea580c, #f97316); }
+.gray-gradient { background: linear-gradient(135deg, #4b5563, #6b7280); }
 .primary-gradient { background: var(--primary-gradient); }
 
 .kpi-content { flex: 1; position: relative; z-index: 1; }

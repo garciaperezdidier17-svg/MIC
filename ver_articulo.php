@@ -103,6 +103,12 @@ require_once 'includes/sidebar.php';
         <?php if ($puedeRegistrarMto): ?>
         <button class="btn btn-outline btn-sm" onclick="openModal('mantenimientoModal')"><i class="fas fa-tools"></i> Registrar mantenimiento</button>
         <?php endif; ?>
+        <form method="POST" action="modulo_inventario_general/acciones_elemento.php" style="display:inline;margin:0;">
+            <input type="hidden" name="accion" value="alternar_prestamo">
+            <input type="hidden" name="elemento_id" value="<?php echo (int)$item['id']; ?>">
+            <?php echo campoCSRF(); ?>
+            <button type="submit" class="btn btn-outline btn-sm" title="Cambiar disponibilidad para préstamo"><i class="fas fa-hand-holding"></i> <?php echo $item['disponible_para_prestamo'] ? 'Quitar de préstamo' : 'Habilitar préstamo'; ?></button>
+        </form>
         <a href="#historial" class="btn btn-outline btn-sm"><i class="fas fa-history"></i> Ver historial</a>
         <a href="#documentacion" class="btn btn-outline btn-sm"><i class="fas fa-folder-open"></i> Ver documentación</a>
         <a href="#actas" class="btn btn-outline btn-sm"><i class="fas fa-file-signature"></i> Ver actas</a>

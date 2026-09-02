@@ -205,3 +205,94 @@ function alertasDeElemento($conn, $item) {
     }
     return $alertas;
 }
+
+/**
+ * Alertas del módulo de préstamos (misma estructura que calcularAlertas).
+ * Se integra en el Centro de Alertas y el Dashboard, sin alterar
+ * calcularAlertas (que está cubierta por tests).
+ */
+function calcularAlertasPrestamos($conn) {
+    $alertas = [];
+
+    $base = "SELECT p.id, p.estado, p.fecha_prestamo, p.fecha_devolucion_esperada, p.fecha_devolucion_real, p.estado_devolucion,
+                    s.nombre as sede_nombre,
+                    CONCAT(COALESCE(pr.nombre,''),' ',COALESCE(pr.apellido,'')) as responsable,
+                    COALESCE(GROUP_CONCAT(DISTINCT ig.nombre ORDER BY ig.nombre SEPARATOR ', '), '') as elementos
+             FROM prestamos p
+             LEFT JOIN sedes s ON p.id_sede = s.id
+             LEFT JOIN profesores pr ON p.id_profesor = pr.id
+             LEFT JOIN prestamo_elementos pe ON pe.id_prestamo = p.id
+             LEFT JOIN inventario_general ig ON pe.id_elemento = ig.id
+             GROUP BY p.id";
+
+    $armarFilas = function ($filas) {
+        $salida = [];
+        foreach ($filas as $f) {
+            $salida[] = [
+                'codigo_interno' => '#' . $f['id'],
+                'nombre' => $f['elementos'] ?: '—',
+                'sede_nombre' => $f['sede_nombre'] ?? '—',
+                'ubicacion' => '',
+                'responsable' => $f['responsable'] ?: '—',
+                'estado' => $f['estado'],
+                'elementos' => $f['elementos'] ?: '—',
+                'fecha_devolucion_esperada' => $f['fecha_devolucion_esperada'] ?: '',
+                'dias_restantes' => $f['fecha_devolucion_esperada']
+                    ? (int)ceil((strtotime($f['fecha_devolucion_esperada']) - time()) / 86400)
+                    : 0,
+                'prestamo_id' => (int)$f['id'],
+            ];
+        }
+        return $salida;
+    };
+
+    $stmt = $conn->query("$base HAVING p.estado='vencido' ORDER BY p.fecha_devolucion_esperada ASC");
+    $rows = $armarFilas($stmt->fetchAll(PDO::FETCH_ASSOC));
+    if ($rows) {
+        $alertas[] = [
+            'clave' => 'prestamos_vencidos', 'prioridad' => 'critica',
+            'icono' => 'fas fa-hourglass-end', 'titulo' => 'Préstamos vencidos sin devolver',
+            'cantidad' => count($rows), 'descripcion' => 'Préstamos cuya fecha de devolución ya pasó y siguen sin devolverse.',
+            'columnas' => ['Devolución esperada', 'Días restantes'],
+            'elementos' => $rows,
+        ];
+    }
+
+    $stmt = $conn->query("$base HAVING p.estado IN ('activo', 'parcialmente devuelto') AND p.fecha_devolucion_esperada = CURDATE() ORDER BY p.id");
+    $rows = $armarFilas($stmt->fetchAll(PDO::FETCH_ASSOC));
+    if ($rows) {
+        $alertas[] = [
+            'clave' => 'prestamos_vence_hoy', 'prioridad' => 'advertencia',
+            'icono' => 'fas fa-clock', 'titulo' => 'Préstamos que vencen hoy',
+            'cantidad' => count($rows), 'descripcion' => 'Préstamos activos que deben devolverse hoy.',
+            'columnas' => ['Devolución esperada', 'Días restantes'],
+            'elementos' => $rows,
+        ];
+    }
+
+    $stmt = $conn->query("$base HAVING p.estado IN ('activo', 'parcialmente devuelto') AND p.fecha_devolucion_esperada > CURDATE() AND p.fecha_devolucion_esperada <= DATE_ADD(CURDATE(), INTERVAL 3 DAY) ORDER BY p.fecha_devolucion_esperada ASC");
+    $rows = $armarFilas($stmt->fetchAll(PDO::FETCH_ASSOC));
+    if ($rows) {
+        $alertas[] = [
+            'clave' => 'prestamos_proximos', 'prioridad' => 'informacion',
+            'icono' => 'fas fa-hourglass-start', 'titulo' => 'Préstamos próximos a vencer',
+            'cantidad' => count($rows), 'descripcion' => 'Préstamos activos que vencen en los próximos 3 días.',
+            'columnas' => ['Devolución esperada', 'Días restantes'],
+            'elementos' => $rows,
+        ];
+    }
+
+    $stmt = $conn->query("$base HAVING p.estado IN ('devuelto', 'parcialmente devuelto') AND p.estado_devolucion IN ('Dañado', 'Perdido') AND p.fecha_devolucion_real >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) ORDER BY p.fecha_devolucion_real DESC");
+    $rows = $armarFilas($stmt->fetchAll(PDO::FETCH_ASSOC));
+    if ($rows) {
+        $alertas[] = [
+            'clave' => 'devoluciones_con_dano', 'prioridad' => 'advertencia',
+            'icono' => 'fas fa-exclamation-triangle', 'titulo' => 'Devoluciones con daño (7 días)',
+            'cantidad' => count($rows), 'descripcion' => 'Devoluciones recientes en las que el elemento se registró como Dañado.',
+            'columnas' => ['Devolución esperada', 'Días restantes'],
+            'elementos' => $rows,
+        ];
+    }
+
+    return $alertas;
+}

@@ -2,6 +2,7 @@
 require_once '../config/conexion.php';
 require_once __DIR__ . '/helpers_alertas.php';
 require_once __DIR__ . '/../config/helpers_auditoria.php';
+require_once __DIR__ . '/../modulo_prestamos/helpers_prestamos.php';
 if (!estaLogueado()) { header('Location: ../index.php'); exit; }
 if (!esAdmin()) { header('Location: ../modulo_prestamos/solicitudes.php'); exit; }
 
@@ -81,7 +82,7 @@ $ultimoRegistro = $conn->query("SELECT nombre, codigo_interno, creado_en FROM in
 
 $vidaUtilVencida = $conn->query("SELECT COUNT(*) FROM inventario_general WHERE activo=1 AND vida_util IS NOT NULL AND DATE_ADD(creado_en, INTERVAL vida_util YEAR) <= DATE_ADD(CURDATE(), INTERVAL 1 YEAR)")->fetchColumn();
 
-$alertas = calcularAlertas($conn);
+$alertas = array_merge(calcularAlertas($conn), calcularAlertasPrestamos($conn));
 
 $statsToma = $conn->query("SELECT
     (SELECT COUNT(*) FROM tomas_fisicas) as total_tomas,
@@ -113,6 +114,7 @@ $ultimasActividades = $conn->query(
      FROM auditoria a LEFT JOIN usuarios u ON a.usuario_id = u.id
      ORDER BY a.id DESC LIMIT 8"
 )->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <?php
 $pageTitle = 'Dashboard - MIC';

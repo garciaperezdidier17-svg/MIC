@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['agregar'])) {
     $observacion = trim($_POST['observacion'] ?? '');
     $vr_comercial = (!isset($_POST['donado']) && isset($_POST['vr_comercial']) && $_POST['vr_comercial'] !== '') ? (float)str_replace(',', '', $_POST['vr_comercial']) : null;
     $vida_util = (!isset($_POST['donado']) && isset($_POST['vida_util']) && $_POST['vida_util'] !== '') ? (int)$_POST['vida_util'] : null;
+    $disponible_para_prestamo = isset($_POST['disponible_para_prestamo']) && $_POST['disponible_para_prestamo'] === '1' ? 1 : 0;
+    
     if (!empty($nombre) && !empty($tipo)) {
         if ($origen_bien === 'Compra' && !$documento_no_disponible && !$proveedor_id) {
             $_SESSION['mensaje'] = 'Debe seleccionar un proveedor cuando el origen del bien es Compra';
@@ -87,8 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['agregar'])) {
             $ubicCodigo = obtenerCodigoUbicacion($sedeInfo['nombre'], $ubicacion);
             $codigo_interno = generarCodigoElemento($conn, $institucion['codigo'], $sedeInfo['nombre'], $sedeInfo['codigo'], $ubicCodigo);
         }
-        $conn->prepare("INSERT INTO inventario_general (codigo_interno, nombre, categoria, tipo, marca, modelo, numero_serie, procesador, ram, almacenamiento, accesorios, estado, ubicacion, codigo_ubicacion, id_sede, profesor_id, origen_bien, documento_no_disponible, proveedor_id, numero_factura, fecha_compra, valor_compra, numero_orden_compra, fecha_garantia, donante_nombre, fecha_donacion, institucion_origen, fecha_transferencia, descripcion_origen, fecha_ingreso, descripcion, observacion, vr_comercial, vida_util) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-            ->execute([$codigo_interno ?: null, $nombre, $categoria ?: null, $tipo, $marca ?: null, $modelo ?: null, $numero_serie ?: null, $procesador ?: null, $ram ?: null, $almacenamiento ?: null, $accesorios ?: null, $estado, $ubicacion, $ubicCodigo ?: null, $id_sede, $profesor_id, $origen_bien, $documento_no_disponible, $proveedor_id, $numero_factura ?: null, $fecha_compra, $valor_compra, $numero_orden_compra ?: null, $fecha_garantia, $donante_nombre ?: null, $fecha_donacion, $institucion_origen ?: null, $fecha_transferencia, $descripcion_origen ?: null, $fecha_ingreso, $descripcion ?: null, $observacion ?: null, $vr_comercial, $vida_util]);
+        $conn->prepare("INSERT INTO inventario_general (codigo_interno, nombre, categoria, tipo, marca, modelo, numero_serie, procesador, ram, almacenamiento, accesorios, estado, ubicacion, codigo_ubicacion, id_sede, profesor_id, origen_bien, documento_no_disponible, proveedor_id, numero_factura, fecha_compra, valor_compra, numero_orden_compra, fecha_garantia, donante_nombre, fecha_donacion, institucion_origen, fecha_transferencia, descripcion_origen, fecha_ingreso, descripcion, observacion, vr_comercial, vida_util, disponible_para_prestamo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+            ->execute([$codigo_interno ?: null, $nombre, $categoria ?: null, $tipo, $marca ?: null, $modelo ?: null, $numero_serie ?: null, $procesador ?: null, $ram ?: null, $almacenamiento ?: null, $accesorios ?: null, $estado, $ubicacion, $ubicCodigo ?: null, $id_sede, $profesor_id, $origen_bien, $documento_no_disponible, $proveedor_id, $numero_factura ?: null, $fecha_compra, $valor_compra, $numero_orden_compra ?: null, $fecha_garantia, $donante_nombre ?: null, $fecha_donacion, $institucion_origen ?: null, $fecha_transferencia, $descripcion_origen ?: null, $fecha_ingreso, $descripcion ?: null, $observacion ?: null, $vr_comercial, $vida_util, $disponible_para_prestamo]);
         $nuevoId = $conn->lastInsertId();
         $docField = $documento_no_disponible ? null : campoDocumentoDe($origen_bien);
         if ($docField && isset($_FILES[$docField]) && $_FILES[$docField]['error'] === UPLOAD_ERR_OK) {
@@ -208,11 +210,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editar'])) {
         exit;
     }
     $ubicCodigo = obtenerCodigoUbicacion($sedeNombre ?: '', $ubicacion);
+    $disponible_prestamo = isset($_POST['disponible_para_prestamo']) ? 1 : 0;
     $oldStmt = $conn->prepare("SELECT ig.*, s.nombre as sede_ant_nombre, CONCAT(COALESCE(p.nombre,''),' ',COALESCE(p.apellido,'')) as resp_ant_nombre FROM inventario_general ig LEFT JOIN sedes s ON ig.id_sede=s.id LEFT JOIN profesores p ON ig.profesor_id=p.id WHERE ig.id=?");
     $oldStmt->execute([$id]);
     $old = $oldStmt->fetch(PDO::FETCH_ASSOC);
-    $conn->prepare("UPDATE inventario_general SET codigo_interno=?, nombre=?, categoria=?, tipo=?, marca=?, modelo=?, numero_serie=?, procesador=?, ram=?, almacenamiento=?, accesorios=?, estado=?, ubicacion=?, codigo_ubicacion=?, id_sede=?, profesor_id=?, origen_bien=?, documento_no_disponible=?, proveedor_id=?, numero_factura=?, fecha_compra=?, valor_compra=?, numero_orden_compra=?, fecha_garantia=?, donante_nombre=?, fecha_donacion=?, institucion_origen=?, fecha_transferencia=?, descripcion_origen=?, fecha_ingreso=?, descripcion=?, observacion=?, vr_comercial=?, vida_util=? WHERE id=?")
-        ->execute([$codigo_interno ?: null, $nombre, $categoria ?: null, $tipo, $marca ?: null, $modelo ?: null, $numero_serie ?: null, $procesador ?: null, $ram ?: null, $almacenamiento ?: null, $accesorios ?: null, $estado, $ubicacion, $ubicCodigo ?: null, $id_sede, $profesor_id, $origen_bien, $documento_no_disponible, $proveedor_id, $numero_factura ?: null, $fecha_compra, $valor_compra, $numero_orden_compra ?: null, $fecha_garantia, $donante_nombre ?: null, $fecha_donacion, $institucion_origen ?: null, $fecha_transferencia, $descripcion_origen ?: null, $fecha_ingreso, $descripcion ?: null, $observacion ?: null, $vr_comercial, $vida_util, $id]);
+    $conn->prepare("UPDATE inventario_general SET codigo_interno=?, nombre=?, categoria=?, tipo=?, marca=?, modelo=?, numero_serie=?, procesador=?, ram=?, almacenamiento=?, accesorios=?, estado=?, ubicacion=?, codigo_ubicacion=?, id_sede=?, profesor_id=?, origen_bien=?, documento_no_disponible=?, proveedor_id=?, numero_factura=?, fecha_compra=?, valor_compra=?, numero_orden_compra=?, fecha_garantia=?, donante_nombre=?, fecha_donacion=?, institucion_origen=?, fecha_transferencia=?, descripcion_origen=?, fecha_ingreso=?, descripcion=?, observacion=?, vr_comercial=?, vida_util=?, disponible_para_prestamo=? WHERE id=?")
+        ->execute([$codigo_interno ?: null, $nombre, $categoria ?: null, $tipo, $marca ?: null, $modelo ?: null, $numero_serie ?: null, $procesador ?: null, $ram ?: null, $almacenamiento ?: null, $accesorios ?: null, $estado, $ubicacion, $ubicCodigo ?: null, $id_sede, $profesor_id, $origen_bien, $documento_no_disponible, $proveedor_id, $numero_factura ?: null, $fecha_compra, $valor_compra, $numero_orden_compra ?: null, $fecha_garantia, $donante_nombre ?: null, $fecha_donacion, $institucion_origen ?: null, $fecha_transferencia, $descripcion_origen ?: null, $fecha_ingreso, $descripcion ?: null, $observacion ?: null, $vr_comercial, $vida_util, $disponible_prestamo, $id]);
     if ($old) {
         $nuevoProfNombre = $profesor_id ? $conn->query("SELECT CONCAT(nombre, ' ', apellido) FROM profesores WHERE id=$profesor_id")->fetchColumn() : null;
         if ((int)$old['id_sede'] !== $id_sede || $old['ubicacion'] !== $ubicacion) {
@@ -257,6 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editar'])) {
             'sede' => $sedeNombre ?: null, 'ubicacion' => $ubicacion ?: null,
             'responsable' => $nuevoProfNombre ?: null, 'valor_compra' => $valor_compra,
             'vr_comercial' => $vr_comercial, 'vida_util' => $vida_util, 'origen' => $origen_bien,
+            'disponible_para_prestamo' => (int)$disponible_prestamo,
         ];
         registrarEventoHistorial($conn, $id, 'modificacion', 'Elemento actualizado', ['estado' => $old['estado']], $datosNuevos, (int)$_SESSION['user_id']);
         registrarAuditoria(
@@ -313,6 +317,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editar'])) {
         }
     }
     $_SESSION['mensaje'] = 'Elemento actualizado correctamente';
+    header('Location: index.php');
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['dar_de_baja'])) {
+    $id = (int)$_POST['id'];
+    $motivo = trim($_POST['motivo_baja']);
+    $fecha = trim($_POST['fecha_baja']);
+    $valor_residual = !empty($_POST['valor_residual']) ? (float)str_replace(',', '', $_POST['valor_residual']) : null;
+    $obs = trim($_POST['observaciones_baja']);
+    
+    $elInfo = $conn->query("SELECT nombre, codigo_interno FROM inventario_general WHERE id=$id")->fetch(PDO::FETCH_ASSOC);
+    if ($elInfo) {
+        $rutaEvidencia = null;
+        if (isset($_FILES['evidencia_baja']) && $_FILES['evidencia_baja']['error'] === UPLOAD_ERR_OK) {
+            $ext = strtolower(pathinfo($_FILES['evidencia_baja']['name'], PATHINFO_EXTENSION));
+            $rutaDir = dirname(__DIR__) . '/uploads/bajas/';
+            if (!is_dir($rutaDir)) { @mkdir($rutaDir, 0775, true); }
+            $nombreArchivo = 'baja_' . $id . '_' . time() . '.' . ($ext ?: 'jpg');
+            if (move_uploaded_file($_FILES['evidencia_baja']['tmp_name'], $rutaDir . $nombreArchivo)) {
+                $rutaEvidencia = 'uploads/bajas/' . $nombreArchivo;
+            }
+        }
+        
+        $datosNuevos = [
+            'estado' => 'Dado de baja',
+            'motivo' => $motivo,
+            'fecha' => $fecha,
+            'valor_residual' => $valor_residual,
+            'observaciones' => $obs,
+            'evidencia' => $rutaEvidencia
+        ];
+        
+        registrarEventoHistorial($conn, $id, 'baja', 'Baja del activo: ' . $motivo, ['nombre' => $elInfo['nombre'], 'codigo' => $elInfo['codigo_interno']], $datosNuevos, (int)$_SESSION['user_id']);
+        registrarAuditoria($conn, 'dar_baja_activo', 'inventario', 'elemento', $id, 'Activo dado de baja: ' . ($elInfo['codigo_interno'] ?: $elInfo['nombre']), ['nombre' => $elInfo['nombre'], 'codigo' => $elInfo['codigo_interno']], $datosNuevos);
+        
+        // Cambiar estado, situación y deshabilitar préstamo. No lo eliminamos con activo=0 para que siga su historial, pero cambiamos su estado.
+        $conn->prepare("UPDATE inventario_general SET situacion='dado_de_baja', estado='Dado de baja', disponible_para_prestamo=0 WHERE id=?")->execute([$id]);
+        
+        $_SESSION['mensaje'] = 'Elemento dado de baja correctamente.';
+    }
     header('Location: index.php');
     exit;
 }
@@ -619,12 +664,20 @@ require_once '../includes/sidebar.php';
                     </td>
                     <td>
                         <div class="action-buttons">
-                            <button class="btn-icon" onclick="editar(<?php echo $item['id']; ?>)" title="Editar"><i class="fas fa-edit"></i></button>
-                            <form method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este elemento?')">
+                            <?php if($item['estado'] === 'Dado de baja'): ?>
+                            <a href="generar_acta_baja.php?id=<?php echo $item['id']; ?>" target="_blank" class="btn-icon" style="color:var(--primary);border:none;background:none;cursor:pointer;" title="Imprimir Acta de Baja">
+                                <i class="fas fa-file-pdf"></i>
+                            </a>
+                            <form method="POST" style="display:inline;" id="form_eliminar_<?php echo $item['id']; ?>">
+                                <?php echo campoCSRF(); ?>
                                 <input type="hidden" name="eliminar" value="1">
                                 <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
-                                <button type="submit" class="btn-icon btn-delete" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
                             </form>
+                            <button type="button" class="btn-icon btn-delete" onclick="if(confirm('¿Eliminar definitivamente?')) { document.getElementById('form_eliminar_<?php echo $item['id']; ?>').submit(); }" title="Eliminar definitivamente"><i class="fas fa-trash-alt"></i></button>
+                            <?php else: ?>
+                            <button class="btn-icon" onclick="editar(<?php echo $item['id']; ?>)" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn-icon btn-delete" onclick="abrirModalBaja(<?php echo $item['id']; ?>, '<?php echo addslashes($item['nombre']); ?>')" title="Dar de Baja"><i class="fas fa-level-down-alt"></i></button>
+                            <?php endif; ?>
                         </div>
                     </td>
                 </tr>
@@ -887,13 +940,30 @@ require_once '../includes/sidebar.php';
                         <small style="color:var(--gray);font-size:0.72rem;">PDF, JPG, JPEG o PNG. Máximo 5 MB. Opcional.</small>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Vida Útil (años)</label>
-                    <input type="number" class="form-control" name="vida_util" id="add_vida_util" min="0" placeholder="Años">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha de Ingreso</label>
+                        <input type="date" class="form-control" name="fecha_ingreso" id="add_fecha_ingreso">
+                    </div>
+                    <div class="form-group">
+                        <label>Vida Útil (años)</label>
+                        <input type="number" class="form-control" name="vida_util" id="add_vida_util" min="0" placeholder="Años">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 15px; padding: 10px; background-color: rgba(66, 133, 244, 0.05); border-radius: 8px; border: 1px solid rgba(66, 133, 244, 0.2);">
+                    <label class="checkbox-inline" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin:0;">
+                        <input type="checkbox" name="disponible_para_prestamo" id="add_disponible_para_prestamo" value="1" checked>
+                        <span style="font-weight:600; color: var(--primary);">Disponible para préstamo</span>
+                    </label>
+                    <small style="color:var(--gray);font-size:0.75rem;margin-left:22px;display:block;">Permitir que este elemento sea solicitado en el módulo de Préstamos.</small>
                 </div>
                 <div class="form-group">
-                    <label>Descripción</label>
+                    <label>Descripción General</label>
                     <textarea class="form-control" name="descripcion" rows="2" placeholder="Características adicionales..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Observación</label>
+                    <textarea class="form-control" name="observacion" id="add_observacion" rows="2" placeholder="Cualquier otra observación..."></textarea>
                 </div>
                 <div class="form-row" id="add_comercial_row">
                     <div class="form-group">
@@ -908,6 +978,69 @@ require_once '../includes/sidebar.php';
 </div>
 
 <!-- MODAL EDITAR -->
+<!-- MODAL DAR DE BAJA -->
+<div class="modal" id="bajaModal">
+    <div class="modal-content glass-card" style="max-width:500px;">
+        <div class="modal-header">
+            <h3><i class="fas fa-level-down-alt"></i> Dar de Baja Activo</h3>
+            <button class="modal-close" onclick="closeModal('bajaModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="dar_de_baja" value="1">
+                <input type="hidden" name="id" id="baja_id" value="">
+                
+                <div class="alert alert-warning" style="margin-bottom: 15px;">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Atención:</strong> Vas a dar de baja el elemento: <br>
+                    <span id="baja_nombre_activo" style="font-weight:700;font-size:1.1rem;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Motivo de Baja <span class="required">*</span></label>
+                    <select class="form-control" name="motivo_baja" required>
+                        <option value="">Seleccione un motivo</option>
+                        <option value="Daño irreparable">Daño irreparable</option>
+                        <option value="Obsolescencia">Obsolescencia</option>
+                        <option value="Pérdida">Pérdida</option>
+                        <option value="Hurto">Hurto</option>
+                        <option value="Deterioro">Deterioro</option>
+                        <option value="Fin de vida útil">Fin de vida útil</option>
+                        <option value="Donación">Donación</option>
+                        <option value="Baja administrativa">Baja administrativa</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Fecha de Baja <span class="required">*</span></label>
+                    <input type="date" class="form-control" name="fecha_baja" value="<?php echo date('Y-m-d'); ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Valor residual (Si aplica)</label>
+                    <input type="text" class="form-control" name="valor_residual" placeholder="0.00" oninput="this.value=this.value.replace(/[^0-9.,]/g,'')">
+                </div>
+
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea class="form-control" name="observaciones_baja" rows="3" placeholder="Detalles sobre la baja del activo..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Evidencia / Documento de Soporte</label>
+                    <input type="file" class="form-control" name="evidencia_baja" accept=".pdf,.jpg,.jpeg,.png">
+                    <small style="color:var(--gray);font-size:0.75rem;">Opcional. Actas de pérdida, fotos, etc.</small>
+                </div>
+
+                <div class="form-actions" style="margin-top:20px;">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('bajaModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-check"></i> Confirmar Baja</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="editModal">
     <div class="modal-content glass-card">
         <div class="modal-header">
@@ -1054,6 +1187,12 @@ require_once '../includes/sidebar.php';
                             <span style="font-size:0.85rem;font-weight:500;">No se dispone del documento de adquisición</span>
                         </label>
                     </div>
+                    <div class="form-group" style="display:flex;align-items:end;padding-bottom:6px;">
+                        <label class="checkbox-inline" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin:0;">
+                            <input type="checkbox" name="disponible_para_prestamo" id="edit_disponible_para_prestamo" value="1">
+                            <span style="font-size:0.85rem;font-weight:500;">Disponible para préstamo</span>
+                        </label>
+                    </div>
                 </div>
                 <p style="font-size:0.75rem;color:var(--gray);margin:0 0 12px;"><i class="fas fa-info-circle"></i> Marque esta opción si el documento fue extraviado, no existe o no está disponible.</p>
                 <div class="form-group" id="edit_doc_existente" style="display:none;">
@@ -1153,13 +1292,23 @@ require_once '../includes/sidebar.php';
                         <small style="color:var(--gray);font-size:0.72rem;">PDF, JPG, JPEG o PNG. Máximo 5 MB. Si no selecciona archivo se conserva el actual.</small>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Vida Útil (años)</label>
-                    <input type="number" class="form-control" name="vida_util" id="edit_vida_util" min="0">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha de Ingreso</label>
+                        <input type="date" class="form-control" name="fecha_ingreso" id="edit_fecha_ingreso">
+                    </div>
+                    <div class="form-group">
+                        <label>Vida Útil (años)</label>
+                        <input type="number" class="form-control" name="vida_util" id="edit_vida_util" min="0">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Descripción</label>
                     <textarea class="form-control" name="descripcion" id="edit_descripcion" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Observación</label>
+                    <textarea class="form-control" name="observacion" id="edit_observacion" rows="2"></textarea>
                 </div>
                 <div class="form-row" id="edit_comercial_row">
                     <div class="form-group">
@@ -1514,6 +1663,7 @@ function editar(id) {
     toggleDonado('edit');
     document.getElementById('edit_origen_bien').value = d.origen_bien || '';
     document.getElementById('edit_documento_no_disponible').checked = (d.documento_no_disponible == 1);
+    document.getElementById('edit_disponible_para_prestamo').checked = (d.disponible_para_prestamo == 1);
     document.getElementById('edit_proveedor_id').value = d.proveedor_id || '';
     document.getElementById('edit_numero_factura').value = d.numero_factura || '';
     document.getElementById('edit_fecha_compra').value = d.fecha_compra || '';
@@ -1567,6 +1717,7 @@ var itemsData = <?php
             'vida_util' => $it['vida_util'],
             'origen_bien' => $it['origen_bien'],
             'documento_no_disponible' => $it['documento_no_disponible'],
+            'disponible_para_prestamo' => $it['disponible_para_prestamo'],
             'proveedor_id' => $it['proveedor_id'],
             'numero_factura' => $it['numero_factura'],
             'fecha_compra' => $it['fecha_compra'],
@@ -1594,6 +1745,12 @@ var qrData = <?php
     }
     echo json_encode($qrMap, JSON_UNESCAPED_UNICODE);
 ?>;
+
+function abrirModalBaja(id, nombre) {
+    document.getElementById('baja_id').value = id;
+    document.getElementById('baja_nombre_activo').textContent = nombre;
+    openModal('bajaModal');
+}
 
 function verQRModal(id) {
     var data = qrData[id];

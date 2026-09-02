@@ -61,6 +61,37 @@ CREATE TABLE `actas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `auditoria`
+--
+
+DROP TABLE IF EXISTS `auditoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auditoria` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) DEFAULT NULL,
+  `accion` varchar(100) NOT NULL,
+  `modulo` varchar(50) NOT NULL,
+  `entidad` varchar(100) DEFAULT NULL,
+  `entidad_id` int(11) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `datos_anteriores` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`datos_anteriores`)),
+  `datos_nuevos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`datos_nuevos`)),
+  `ip` varchar(45) DEFAULT NULL,
+  `user_agent` varchar(255) DEFAULT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_aud_usuario` (`usuario_id`),
+  KEY `idx_aud_accion` (`accion`),
+  KEY `idx_aud_modulo` (`modulo`),
+  KEY `idx_aud_fecha` (`fecha`),
+  KEY `idx_aud_entidad` (`entidad`,`entidad_id`),
+  CONSTRAINT `fk_auditoria_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `bajas`
 --
 
@@ -107,7 +138,7 @@ CREATE TABLE `categorias` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +187,7 @@ CREATE TABLE `elemento_historial` (
   CONSTRAINT `fk_historial_acta` FOREIGN KEY (`acta_id`) REFERENCES `actas` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +270,7 @@ CREATE TABLE `estados` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,6 +410,7 @@ CREATE TABLE `inventario_general` (
   `documento_adquisicion` varchar(255) DEFAULT NULL,
   `estado` varchar(50) DEFAULT 'bueno',
   `situacion` varchar(30) NOT NULL DEFAULT 'disponible',
+  `disponible_para_prestamo` tinyint(1) NOT NULL DEFAULT 1,
   `ubicacion` varchar(200) DEFAULT NULL,
   `codigo_ubicacion` varchar(20) DEFAULT NULL,
   `descripcion` text DEFAULT NULL,
@@ -395,9 +427,10 @@ CREATE TABLE `inventario_general` (
   KEY `idx_inv_situacion` (`situacion`),
   KEY `idx_inv_id_sede` (`id_sede`),
   KEY `idx_inv_codigo` (`codigo_interno`),
+  KEY `idx_disponible_prestamo` (`disponible_para_prestamo`),
   CONSTRAINT `inventario_general_ibfk_profesor` FOREIGN KEY (`profesor_id`) REFERENCES `profesores` (`id`),
   CONSTRAINT `inventario_general_ibfk_proveedor` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -518,6 +551,54 @@ CREATE TABLE `novedades` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `prestamo_elementos`
+--
+
+DROP TABLE IF EXISTS `prestamo_elementos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prestamo_elementos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_prestamo` int(11) NOT NULL,
+  `id_elemento` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL DEFAULT 1,
+  `tipo_prestamo` enum('individual','cantidad') NOT NULL DEFAULT 'individual',
+  `codigo_interno` varchar(50) DEFAULT NULL,
+  `estado_devolucion` enum('Bueno','Regular','Da├▒ado') DEFAULT NULL,
+  `observaciones_devolucion` text DEFAULT NULL,
+  `evidencia_foto` varchar(255) DEFAULT NULL,
+  `creado_en` timestamp NOT NULL DEFAULT current_timestamp(),
+  `actualizado_en` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_pe_prestamo` (`id_prestamo`),
+  KEY `idx_pe_elemento` (`id_elemento`),
+  KEY `idx_pe_estado_dev` (`estado_devolucion`),
+  CONSTRAINT `prestamo_elementos_ibfk_elemento` FOREIGN KEY (`id_elemento`) REFERENCES `inventario_general` (`id`),
+  CONSTRAINT `prestamo_elementos_ibfk_prestamo` FOREIGN KEY (`id_prestamo`) REFERENCES `prestamos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `prestamo_recordatorios`
+--
+
+DROP TABLE IF EXISTS `prestamo_recordatorios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prestamo_recordatorios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_prestamo` int(11) NOT NULL,
+  `tipo` enum('3_dias','1_dia','hoy','vencido') NOT NULL,
+  `enviado` tinyint(1) NOT NULL DEFAULT 0,
+  `fecha_envio` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_prestamo_tipo` (`id_prestamo`,`tipo`),
+  KEY `idx_pr_tipo` (`tipo`),
+  CONSTRAINT `prestamo_recordatorios_ibfk_prestamo` FOREIGN KEY (`id_prestamo`) REFERENCES `prestamos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `prestamos`
 --
 
@@ -527,14 +608,20 @@ DROP TABLE IF EXISTS `prestamos`;
 CREATE TABLE `prestamos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_solicitud` int(11) NOT NULL,
-  `id_equipo` int(11) NOT NULL,
-  `id_estudiante` int(11) NOT NULL,
+  `id_solicitud_elemento` int(11) DEFAULT NULL,
+  `id_equipo` int(11) DEFAULT NULL,
+  `id_estudiante` int(11) DEFAULT NULL,
+  `id_profesor` int(11) DEFAULT NULL,
+  `id_sede` int(11) DEFAULT NULL,
   `fecha_prestamo` date NOT NULL,
   `fecha_devolucion_esperada` date NOT NULL,
   `fecha_devolucion_real` date DEFAULT NULL,
   `hora_prestamo` time NOT NULL,
   `hora_devolucion` time DEFAULT NULL,
-  `estado` enum('activo','devuelto','vencido','extraviado') DEFAULT 'activo',
+  `estado` enum('pendiente','aprobado','activo','parcialmente devuelto','devuelto','vencido','rechazado','cancelado','extraviado') DEFAULT 'pendiente',
+  `estado_devolucion` enum('Bueno','Regular','Da├▒ado') DEFAULT NULL,
+  `observaciones_devolucion` text DEFAULT NULL,
+  `evidencia_foto` varchar(255) DEFAULT NULL,
   `observaciones` text DEFAULT NULL,
   `multa` decimal(10,2) DEFAULT 0.00,
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -544,10 +631,16 @@ CREATE TABLE `prestamos` (
   KEY `id_equipo` (`id_equipo`),
   KEY `idx_estado` (`estado`),
   KEY `prestamos_ibfk_3` (`id_estudiante`),
+  KEY `idx_prestamos_profesor` (`id_profesor`),
+  KEY `idx_prestamos_devolucion` (`fecha_devolucion_esperada`),
+  KEY `idx_prestamos_estado` (`estado`),
+  KEY `idx_prestamos_sede` (`id_sede`),
   CONSTRAINT `prestamos_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `solicitudes` (`id`),
   CONSTRAINT `prestamos_ibfk_2` FOREIGN KEY (`id_equipo`) REFERENCES `equipos` (`id`),
-  CONSTRAINT `prestamos_ibfk_3` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `prestamos_ibfk_3` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id`),
+  CONSTRAINT `prestamos_ibfk_profesor` FOREIGN KEY (`id_profesor`) REFERENCES `profesores` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `prestamos_ibfk_sede` FOREIGN KEY (`id_sede`) REFERENCES `sedes` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -570,7 +663,7 @@ CREATE TABLE `profesores` (
   PRIMARY KEY (`id`),
   KEY `sede_id` (`sede_id`),
   CONSTRAINT `profesores_ibfk_1` FOREIGN KEY (`sede_id`) REFERENCES `sedes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -651,6 +744,29 @@ CREATE TABLE `sedes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `solicitud_elementos`
+--
+
+DROP TABLE IF EXISTS `solicitud_elementos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `solicitud_elementos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_solicitud` int(11) NOT NULL,
+  `id_elemento` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL DEFAULT 1,
+  `tipo_prestamo` enum('individual','cantidad') NOT NULL DEFAULT 'individual',
+  `observaciones` text DEFAULT NULL,
+  `creado_en` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_se_solicitud` (`id_solicitud`),
+  KEY `idx_se_elemento` (`id_elemento`),
+  CONSTRAINT `solicitud_elementos_ibfk_elemento` FOREIGN KEY (`id_elemento`) REFERENCES `inventario_general` (`id`),
+  CONSTRAINT `solicitud_elementos_ibfk_solicitud` FOREIGN KEY (`id_solicitud`) REFERENCES `solicitudes` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `solicitudes`
 --
 
@@ -660,12 +776,17 @@ DROP TABLE IF EXISTS `solicitudes`;
 CREATE TABLE `solicitudes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
+  `id_sede` int(11) DEFAULT NULL,
   `id_estudiante` int(11) DEFAULT NULL,
-  `id_equipo` int(11) NOT NULL,
+  `id_profesor` int(11) DEFAULT NULL,
+  `id_equipo` int(11) DEFAULT NULL,
   `fecha_solicitud` date NOT NULL,
   `hora_solicitud` time NOT NULL,
   `motivo` text NOT NULL,
   `fecha_devolucion_esperada` date DEFAULT NULL,
+  `fecha_prestamo` date DEFAULT NULL,
+  `hora_prestamo` time DEFAULT NULL,
+  `hora_devolucion_esperada` time DEFAULT NULL,
   `estado` enum('pendiente','aprobada','rechazada','entregada','devuelta','cancelada') DEFAULT 'pendiente',
   `fecha_atencion` timestamp NULL DEFAULT NULL,
   `id_atendido` int(11) DEFAULT NULL,
@@ -677,11 +798,15 @@ CREATE TABLE `solicitudes` (
   KEY `id_equipo` (`id_equipo`),
   KEY `id_atendido` (`id_atendido`),
   KEY `idx_estado` (`estado`),
+  KEY `idx_solicitudes_sede` (`id_sede`),
+  KEY `idx_solicitudes_profesor` (`id_profesor`),
   CONSTRAINT `solicitudes_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `solicitudes_ibfk_2` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id`),
   CONSTRAINT `solicitudes_ibfk_3` FOREIGN KEY (`id_equipo`) REFERENCES `equipos` (`id`),
-  CONSTRAINT `solicitudes_ibfk_4` FOREIGN KEY (`id_atendido`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `solicitudes_ibfk_4` FOREIGN KEY (`id_atendido`) REFERENCES `usuarios` (`id`),
+  CONSTRAINT `solicitudes_ibfk_profesor` FOREIGN KEY (`id_profesor`) REFERENCES `profesores` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `solicitudes_ibfk_sede` FOREIGN KEY (`id_sede`) REFERENCES `sedes` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -703,7 +828,7 @@ CREATE TABLE `tipo_equipo` (
   UNIQUE KEY `nombre_tipo` (`nombre_tipo`),
   KEY `idx_tipo_categoria` (`categoria_id`),
   CONSTRAINT `tipo_equipo_ibfk_categoria` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -737,7 +862,7 @@ CREATE TABLE `tomas_fisicas` (
   KEY `idx_tf_fecha` (`fecha_toma`),
   CONSTRAINT `tomas_fisicas_ibfk_sede` FOREIGN KEY (`sede_id`) REFERENCES `sedes` (`id`),
   CONSTRAINT `tomas_fisicas_ibfk_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -769,7 +894,7 @@ CREATE TABLE `tomas_fisicas_detalle` (
   CONSTRAINT `tomas_fisicas_detalle_ibfk_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`),
   CONSTRAINT `tomas_fisicas_detalle_ibfk_toma` FOREIGN KEY (`toma_fisica_id`) REFERENCES `tomas_fisicas` (`id`) ON DELETE CASCADE,
   CONSTRAINT `tomas_fisicas_detalle_ibfk_verificador` FOREIGN KEY (`verificador_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -800,7 +925,7 @@ CREATE TABLE `usuarios` (
   KEY `rol_id` (`rol_id`),
   KEY `idx_email` (`email`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -848,36 +973,4 @@ CREATE TABLE `usuarios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-08-13 18:17:43
-
---
--- Table structure for table `auditoria`
--- (Agregada el 2026-08-13: Auditoría del Sistema)
---
-
-DROP TABLE IF EXISTS `auditoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `auditoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id` int(11) DEFAULT NULL,
-  `accion` varchar(100) NOT NULL,
-  `modulo` varchar(50) NOT NULL,
-  `entidad` varchar(100) DEFAULT NULL,
-  `entidad_id` int(11) DEFAULT NULL,
-  `descripcion` text DEFAULT NULL,
-  `datos_anteriores` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`datos_anteriores`)),
-  `datos_nuevos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`datos_nuevos`)),
-  `ip` varchar(45) DEFAULT NULL,
-  `user_agent` varchar(255) DEFAULT NULL,
-  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `idx_aud_usuario` (`usuario_id`),
-  KEY `idx_aud_accion` (`accion`),
-  KEY `idx_aud_modulo` (`modulo`),
-  KEY `idx_aud_fecha` (`fecha`),
-  KEY `idx_aud_entidad` (`entidad`,`entidad_id`),
-  CONSTRAINT `fk_auditoria_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- Dump completed on 2026-08-28 21:28:25

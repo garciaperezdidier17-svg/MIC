@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['guardar_periodo'])) {
 }
 
 $diasGarantia = diasAlertaGarantia($conn);
-$alertas = calcularAlertas($conn);
+$alertas = array_merge(calcularAlertas($conn), calcularAlertasPrestamos($conn));
 
 $porPrioridad = ['critica' => [], 'advertencia' => [], 'informacion' => []];
 foreach ($alertas as $a) { $porPrioridad[$a['prioridad']][] = $a; }
@@ -36,6 +36,8 @@ function valorColumna($r, $clave) {
         case 'Fin de vida útil': return !empty($r['fecha_fin_vida']) ? date('d/m/Y', strtotime($r['fecha_fin_vida'])) : '—';
         case 'Fecha último mantenimiento': return isset($r['fecha_ultimo_mantenimiento']) && $r['fecha_ultimo_mantenimiento'] !== '—' ? date('d/m/Y', strtotime($r['fecha_ultimo_mantenimiento'])) : '—';
         case 'Próximo mantenimiento': return $r['proximo_mantenimiento'] ?? '—';
+        case 'Devolución esperada': return !empty($r['fecha_devolucion_esperada']) ? date('d/m/Y', strtotime($r['fecha_devolucion_esperada'])) : '—';
+        case 'Elementos': return $r['elementos'] ?? '—';
     }
     return '—';
 }

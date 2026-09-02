@@ -24,69 +24,79 @@ $qrPath = $item['qr_path'] ? "../assets/{$item['qr_path']}" : '';
         body {
             display:flex; justify-content:center; align-items:center;
             min-height:100vh; font-family:Arial, sans-serif;
+            background:#f0f0f0;
         }
         .etiqueta {
             width:350px; padding:20px; border:2px solid #333;
             border-radius:12px; text-align:center; background:#fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .logo {
-            font-size:2.2rem; font-weight:900; color:#1a237e;
-            letter-spacing:1px; margin-bottom:4px;
-        }
-        .institucion {
-            font-size:0.75rem; font-weight:600; color:#555;
-            text-transform:uppercase; margin-bottom:2px;
-        }
-        .sistema {
-            font-size:0.65rem; color:#888; margin-bottom:12px;
-        }
-        .codigo {
-            font-size:1.1rem; font-weight:700; color:#1a237e;
-            letter-spacing:0.5px; margin-bottom:10px;
-            padding:6px 10px; background:#f0f0f0;
-            border-radius:6px; display:inline-block;
+            font-size:1.4rem; font-weight:900; color:#1a237e;
+            letter-spacing:1px; margin-bottom:15px;
+            text-transform: uppercase;
         }
         .qr img {
-            width:140px; height:140px; margin-bottom:10px;
+            width:160px; height:160px; margin-bottom:10px;
+        }
+        .codigo {
+            font-size:1.2rem; font-weight:700; color:#1a237e;
+            letter-spacing:0.5px; margin-bottom:8px;
+            padding:6px 10px; background:#f5f5f5;
+            border-radius:6px; display:inline-block;
         }
         .nombre {
-            font-size:0.85rem; font-weight:600; color:#333;
-            margin-bottom:4px;
+            font-size:0.9rem; font-weight:600; color:#444;
+            margin-bottom:12px;
         }
-        .ubicacion {
-            font-size:0.75rem; color:#666;
+        .info-container {
+            text-align: left;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border: 1px solid #eee;
         }
-        .separator {
-            height:1px; background:#ddd; margin:10px 0;
+        .info-row {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .info-row strong {
+            color: #1a237e;
         }
         @media print {
-            body { margin:0; padding:0; }
-            .etiqueta { border-color:#ccc; box-shadow:none; }
+            body { margin:0; padding:0; background: #fff; display:block; }
+            .etiqueta { border-color:#000; box-shadow:none; border-width: 1px; width:100%; max-width: 350px; margin: 0 auto; }
         }
     </style>
 </head>
 <body>
     <div class="etiqueta">
-        <div class="logo">MIC</div>
-        <div class="institucion"><?php echo htmlspecialchars($institucion['nombre']); ?></div>
-        <div class="sistema">Sistema de Inventario y Control</div>
-        <div class="separator"></div>
-        <div class="codigo"><?php echo htmlspecialchars($codigo); ?></div>
+        <div class="logo">MIC - INVENTARIO</div>
+        
         <div class="qr">
             <?php if ($qrPath): ?>
             <img src="<?php echo htmlspecialchars($qrPath); ?>" alt="QR">
             <?php else: ?>
-            <div style="width:140px;height:140px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;margin:0 auto;border-radius:8px;color:#999;font-size:0.75rem;">QR no disponible</div>
+            <div style="width:160px;height:160px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;margin:0 auto;border-radius:8px;color:#999;font-size:0.75rem;">QR no disponible</div>
             <?php endif; ?>
         </div>
+
+        <div class="codigo"><?php echo htmlspecialchars($codigo); ?></div>
+        
+        <?php if (!empty($item['nombre'])): ?>
         <div class="nombre"><?php echo htmlspecialchars($item['nombre']); ?></div>
-        <div class="ubicacion">
-            <?php echo htmlspecialchars($item['ubicacion'] ?? ''); ?>
-            <?php if ($item['sede_nombre']): ?> · <?php echo htmlspecialchars($item['sede_nombre']); ?><?php endif; ?>
-        </div>
-        <?php if ($item['prof_nombre']): ?>
-        <div class="ubicacion">Resp: <?php echo htmlspecialchars(trim($item['prof_nombre'] . ' ' . $item['prof_apellido'])); ?></div>
         <?php endif; ?>
+
+        <div class="info-container">
+            <?php if (!empty($item['sede_nombre'])): ?>
+            <div class="info-row"><strong>Sede:</strong> <?php echo htmlspecialchars($item['sede_nombre']); ?></div>
+            <?php endif; ?>
+            <?php if (!empty($item['ubicacion'])): ?>
+            <div class="info-row"><strong>Ubicación:</strong> <?php echo htmlspecialchars($item['ubicacion']); ?></div>
+            <?php endif; ?>
+        </div>
     </div>
     <script>
         window.onload = function() { window.print(); }
