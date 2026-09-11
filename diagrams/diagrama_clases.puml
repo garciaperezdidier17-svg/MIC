@@ -1,0 +1,182 @@
+@startuml
+title MIC - Diagrama de Clases Completo y Estructurado
+skinparam linetype ortho
+skinparam nodesep 70
+skinparam ranksep 80
+skinparam classFontSize 11
+skinparam classAttributeFontSize 10
+skinparam classMethodFontSize 10
+
+' ---------------------------------------------------------
+' PAQUETES
+' ---------------------------------------------------------
+package "Persistencia / servicios" {
+  class Conexion {
+    - pdo: PDO
+    + conectar(): PDO
+    + desconectar(): void
+  }
+}
+
+package "Usuarios y autenticación" {
+  class Usuario {
+    - id: int
+    - nombre: String
+    - email: String
+    - telefono: String
+    - password_hash: String
+    - rol_id: int
+    - activo: boolean
+    + iniciarSesion(): boolean
+    + cerrarSesion(): void
+  }
+
+  class Rol {
+    - id: int
+    - nombre: String
+    - descripcion: String
+  }
+  
+  class Administrador {
+    + gestionarUsuarios(): void
+  }
+  
+  class Docente {
+    - identificacion: String
+    - sede_id: int
+  }
+  
+  class Estudiante {
+    - codigo_estudiante: String
+    - grado: int
+  }
+}
+
+package "Ubicaciones" {
+  class Sede {
+    - id: int
+    - codigo: String
+    - nombre: String
+    - direccion: String
+  }
+}
+
+package "Inventario" {
+  class Categoria {
+    - id: int
+    - nombre: String
+  }
+  
+  class TipoEquipo {
+    - id: int
+    - nombre_tipo: String
+  }
+  
+  class Equipo {
+    - id: int
+    - codigo_interno: String
+    - nombre: String
+    - marca: String
+    - modelo: String
+    - estado: String
+    - stock: int
+    + actualizarEstado(): void
+  }
+  
+  class InventarioGeneral {
+    - id: int
+    - codigo_interno: String
+    - qr_path: String
+    - ubicacion: String
+    - estado: String
+    + registrar(): void
+  }
+}
+
+package "Préstamos" {
+  class Solicitud {
+    - id: int
+    - fecha_solicitud: Date
+    - motivo: String
+    - estado: String
+    + aprobar(): void
+  }
+  
+  class Prestamo {
+    - id: int
+    - fecha_prestamo: Date
+    - fecha_devolucion_esperada: Date
+    - estado: String
+    + registrarDevolucion(): void
+  }
+}
+
+package "Mantenimiento" {
+  class Mantenimiento {
+    - id: int
+    - fecha_inicio: Date
+    - descripcion_trabajo: String
+    - estado: String
+    + finalizar(): void
+  }
+  
+  class TomaFisica {
+    - id: int
+    - fecha_toma: Date
+    - estado: String
+    + iniciarToma(): void
+  }
+}
+
+package "Reportes e historial" {
+  class Movimiento {
+    - id: int
+    - tipo: String
+    - cantidad: int
+    - fecha: Date
+  }
+  
+  class ElementoHistorial {
+    - id: int
+    - tipo_evento: String
+    - fecha: Date
+  }
+}
+
+' ---------------------------------------------------------
+' RELACIONES ORDENADAS (Evitando cruces)
+' ---------------------------------------------------------
+
+' Herencia
+Usuario <|-down- Administrador
+Usuario <|-down- Docente
+Usuario <|-down- Estudiante
+
+' Relaciones de usuario
+Rol "1" -left- "0..*" Usuario : tiene
+Docente "0..*" -right- "1" Sede : pertenece a
+
+' Relaciones de Catálogos e Inventario
+Categoria "1" -down- "0..*" TipoEquipo : clasifica
+TipoEquipo "1" -down- "0..*" Equipo : define
+Sede "1" -down- "0..*" Equipo : almacena
+Equipo "1" -right- "1..*" InventarioGeneral : detalla
+
+' Relaciones de Préstamos
+Usuario "1" -down- "0..*" Solicitud : realiza
+Solicitud "1" -down- "0..1" Prestamo : genera
+Prestamo "0..*" -right- "1" Equipo : incluye
+
+' Relaciones de Mantenimiento
+Equipo "1" -down- "0..*" Mantenimiento : requiere
+Sede "1" -down- "0..*" TomaFisica : audita
+
+' Relaciones de Historial
+Equipo "1" -down- "0..*" Movimiento : registra
+InventarioGeneral "1" -down- "0..*" ElementoHistorial : posee
+
+' Conexion (Servicio global, usamos dependencia simple y corta)
+Conexion .up.> Usuario : usa
+Conexion .up.> Equipo : usa
+
+@enduml

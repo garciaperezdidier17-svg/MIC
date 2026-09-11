@@ -1,0 +1,58 @@
+@startuml
+title MIC - Casos de Uso: Docente
+top to bottom direction
+skinparam packageStyle rectangle
+skinparam nodesep 50
+skinparam ranksep 70
+
+actor "Docente" as Docente
+
+together {
+  package "Autenticación y sesión" {
+    usecase "Iniciar sesión" as UC_Login
+    usecase "Cerrar sesión" as UC_Logout
+  }
+
+  package "Consulta de inventario" {
+    usecase "Consultar inventario general" as UC_Inv
+    usecase "Buscar equipo específico" as UC_Buscar
+    usecase "Ver detalle del equipo" as UC_Detalle
+    usecase "Consultar disponibilidad" as UC_Disp
+    usecase "Consultar equipos por sede" as UC_Sede
+  }
+}
+
+together {
+  package "Solicitudes y Préstamos" {
+    usecase "Crear solicitud de préstamo" as UC_Sol
+    usecase "Consultar solicitudes propias" as UC_ConsSol
+    usecase "Ver estado de solicitud" as UC_EstSol
+    usecase "Consultar préstamos propios" as UC_ConsPrest
+  }
+
+  package "Devoluciones e Historial" {
+    usecase "Consultar fechas de devolución" as UC_Fechas
+    usecase "Solicitar devolución" as UC_Dev
+    usecase "Consultar historial de préstamos" as UC_Hist
+  }
+}
+
+Docente --> UC_Login
+Docente --> UC_Logout
+Docente --> UC_Inv
+Docente --> UC_Buscar
+Docente --> UC_Detalle
+Docente --> UC_Disp
+Docente --> UC_Sede
+Docente --> UC_Sol
+Docente --> UC_ConsSol
+Docente --> UC_EstSol
+Docente --> UC_ConsPrest
+Docente --> UC_Fechas
+Docente --> UC_Dev
+Docente --> UC_Hist
+
+UC_Sol .> UC_Disp : <<include>>
+UC_Buscar .> UC_Detalle : <<extend>>
+
+@enduml

@@ -1,0 +1,131 @@
+@startuml
+title MIC - Casos de Uso: Administrador
+top to bottom direction
+skinparam packageStyle rectangle
+skinparam nodesep 40
+skinparam ranksep 60
+
+actor "Administrador" as Admin
+
+' Para organizar el layout y evitar cruces, agrupamos los paquetes estructuralmente
+together {
+  package "Autenticación y sesión" {
+    usecase "Iniciar sesión" as UC1
+    usecase "Cerrar sesión" as UC2
+  }
+  
+  package "Gestión de usuarios" {
+    usecase "Registrar usuario" as UC3
+    usecase "Consultar usuarios" as UC4
+    usecase "Editar usuario" as UC5
+    usecase "Activar/Desactivar usuario" as UC6
+  }
+  
+  package "Gestión de roles y permisos" {
+    usecase "Asignar rol" as UC7
+    usecase "Consultar roles" as UC8
+  }
+}
+
+together {
+  package "Gestión de sedes y ubicaciones" {
+    usecase "Registrar sede/ubicación" as UC9
+    usecase "Consultar sedes" as UC10
+    usecase "Editar sede" as UC11
+  }
+  
+  package "Gestión de categorías y tipos" {
+    usecase "Registrar categoría/tipo" as UC12
+    usecase "Consultar catálogos" as UC13
+  }
+  
+  package "Gestión de inventario" {
+    usecase "Registrar equipo" as UC14
+    usecase "Consultar equipos" as UC15
+    usecase "Ver detalle del equipo" as UC16
+    usecase "Editar equipo" as UC17
+    usecase "Cambiar estado de equipo" as UC18
+  }
+}
+
+together {
+  package "Préstamos, solicitudes y devoluciones" {
+    usecase "Consultar solicitudes" as UC19
+    usecase "Aprobar solicitud" as UC20
+    usecase "Rechazar solicitud" as UC21
+    usecase "Registrar préstamo directo" as UC22
+    usecase "Registrar devolución" as UC23
+    usecase "Consultar préstamos" as UC24
+  }
+  
+  package "Mantenimiento y reparación" {
+    usecase "Registrar mantenimiento" as UC25
+    usecase "Consultar mantenimientos" as UC26
+    usecase "Actualizar estado de mantenimiento" as UC27
+  }
+}
+
+together {
+  package "Toma física" {
+    usecase "Iniciar toma física" as UC28
+    usecase "Registrar novedades y bajas" as UC29
+  }
+  
+  package "Documentación e historial" {
+    usecase "Generar actas" as UC30
+    usecase "Consultar auditoría" as UC31
+    usecase "Consultar historial de equipos" as UC32
+  }
+  
+  package "Reportes, Estadísticas y Dashboard" {
+    usecase "Visualizar dashboard" as UC33
+    usecase "Generar reportes de inventario" as UC34
+    usecase "Consultar equipos disponibles/dañados" as UC35
+  }
+}
+
+' Conexiones lógicas y cortas (todas nacen del admin hacia los casos)
+' Usamos asociaciones directas para evitar cruces
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+Admin --> UC19
+Admin --> UC20
+Admin --> UC21
+Admin --> UC22
+Admin --> UC23
+Admin --> UC24
+Admin --> UC25
+Admin --> UC26
+Admin --> UC27
+Admin --> UC28
+Admin --> UC29
+Admin --> UC30
+Admin --> UC31
+Admin --> UC32
+Admin --> UC33
+Admin --> UC34
+Admin --> UC35
+
+' Inclusiones funcionales reales
+UC20 .> UC22 : <<include>>
+UC23 .> UC18 : <<include>>
+UC27 .> UC18 : <<extend>>
+UC22 .> UC15 : <<include>>
+
+@enduml

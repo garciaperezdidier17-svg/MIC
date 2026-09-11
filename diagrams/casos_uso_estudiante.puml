@@ -1,0 +1,54 @@
+@startuml
+title MIC - Casos de Uso: Estudiante
+top to bottom direction
+skinparam packageStyle rectangle
+skinparam nodesep 50
+skinparam ranksep 70
+
+actor "Estudiante" as Estudiante
+
+together {
+  package "Autenticación y sesión" {
+    usecase "Iniciar sesión" as UC_Login
+    usecase "Cerrar sesión" as UC_Logout
+  }
+
+  package "Consulta de inventario" {
+    usecase "Consultar equipos disponibles" as UC_Disp
+    usecase "Buscar equipo específico" as UC_Buscar
+    usecase "Ver detalle del equipo" as UC_Detalle
+    usecase "Consultar equipos por sede" as UC_Sede
+  }
+}
+
+together {
+  package "Solicitudes y Préstamos" {
+    usecase "Crear solicitud de préstamo" as UC_Sol
+    usecase "Consultar solicitudes propias" as UC_ConsSol
+    usecase "Ver estado de solicitud" as UC_EstSol
+    usecase "Consultar préstamos propios" as UC_ConsPrest
+  }
+
+  package "Devoluciones" {
+    usecase "Consultar fechas de devolución" as UC_Fechas
+    usecase "Visualizar estado de devolución" as UC_Dev
+  }
+}
+
+Estudiante --> UC_Login
+Estudiante --> UC_Logout
+Estudiante --> UC_Disp
+Estudiante --> UC_Buscar
+Estudiante --> UC_Detalle
+Estudiante --> UC_Sede
+Estudiante --> UC_Sol
+Estudiante --> UC_ConsSol
+Estudiante --> UC_EstSol
+Estudiante --> UC_ConsPrest
+Estudiante --> UC_Fechas
+Estudiante --> UC_Dev
+
+UC_Sol .> UC_Disp : <<include>>
+UC_Buscar .> UC_Detalle : <<extend>>
+
+@enduml

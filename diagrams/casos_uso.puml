@@ -1,0 +1,149 @@
+@startuml
+title MIC - Módulo de Inventario y Control (Diagrama de Casos de Uso Completo)
+left to right direction
+skinparam packageStyle rectangle
+skinparam UseCaseFontSize 12
+skinparam nodesep 100
+skinparam ranksep 150
+skinparam linetype ortho
+
+actor "Administrador" as Admin
+actor "Docente" as Docente
+actor "Estudiante" as Estudiante
+
+package "MIC - Módulo de Inventario y Control" {
+  
+  package "Autenticación y Sesión" {
+    usecase "Iniciar sesión" as UC_Login
+    usecase "Cerrar sesión" as UC_Logout
+  }
+  
+  package "Gestión de Usuarios" {
+    usecase "Registrar usuario" as UC_RegUser
+    usecase "Consultar usuarios" as UC_ConsUser
+    usecase "Editar usuario" as UC_EditUser
+    usecase "Eliminar/Desactivar usuario" as UC_DelUser
+    usecase "Gestionar roles" as UC_Roles
+  }
+  
+  package "Gestión de Inventario" {
+    usecase "Registrar equipo / bien" as UC_RegEquipo
+    usecase "Consultar inventario general" as UC_ConsInv
+    usecase "Editar información de equipo" as UC_EditEquipo
+    usecase "Cambiar estado de equipo" as UC_CambiarEstado
+    usecase "Registrar bajas" as UC_Bajas
+    usecase "Subir evidencias" as UC_Evidencias
+  }
+  
+  package "Gestión de Catálogos (Sedes, Categorías, Tipos)" {
+    usecase "Gestionar sedes" as UC_GestSedes
+    usecase "Gestionar categorías" as UC_GestCat
+    usecase "Gestionar tipos de equipo" as UC_GestTipos
+    usecase "Gestionar profesores/estudiantes" as UC_GestPersonal
+    usecase "Gestionar proveedores" as UC_GestProv
+  }
+
+  package "Toma Física" {
+    usecase "Registrar toma física" as UC_TomaFisica
+    usecase "Registrar novedades" as UC_Novedades
+  }
+  
+  package "Préstamos y Solicitudes" {
+    usecase "Consultar solicitudes" as UC_ConsSol
+    usecase "Aprobar solicitud" as UC_AprobarSol
+    usecase "Rechazar solicitud" as UC_RechazarSol
+    usecase "Consultar préstamos" as UC_ConsPrest
+    usecase "Registrar préstamo directo" as UC_RegPrest
+    usecase "Registrar devolución" as UC_Devolucion
+    usecase "Gestionar recordatorios de préstamo" as UC_Recordatorios
+    usecase "Consultar mis préstamos y solicitudes" as UC_MisPrest
+    usecase "Solicitar préstamo de equipo" as UC_SolPrest
+  }
+  
+  package "Mantenimiento y Reparación" {
+    usecase "Registrar mantenimiento" as UC_RegManto
+    usecase "Consultar mantenimientos" as UC_ConsManto
+    usecase "Actualizar estado de mantenimiento" as UC_ActManto
+    usecase "Gestionar equipos dañados" as UC_Danados
+  }
+  
+  package "Documentación e Historial" {
+    usecase "Generar actas de entrega/devolución" as UC_Actas
+    usecase "Consultar auditoría y movimientos" as UC_Auditoria
+    usecase "Consultar historial de elemento" as UC_Historial
+  }
+  
+  package "Reportes y Dashboard" {
+    usecase "Visualizar dashboard (resumen)" as UC_Dashboard
+    usecase "Generar reportes estadísticos" as UC_Reportes
+    usecase "Ver equipos bajo stock" as UC_StockCritico
+    usecase "Consultar notificaciones" as UC_Notificaciones
+  }
+
+  ' Includes y Extends
+  UC_AprobarSol ..> UC_RegPrest : <<include>>
+  UC_RegPrest ..> UC_ConsInv : <<include>>
+  UC_SolPrest ..> UC_ConsInv : <<include>>
+  UC_Bajas ..> UC_Evidencias : <<extend>>
+  UC_ActManto ..> UC_CambiarEstado : <<extend>>
+  UC_Devolucion ..> UC_CambiarEstado : <<include>>
+  UC_Devolucion ..> UC_Actas : <<extend>>
+}
+
+' Relaciones del Administrador
+Admin --> UC_Login
+Admin --> UC_Logout
+Admin --> UC_RegUser
+Admin --> UC_ConsUser
+Admin --> UC_EditUser
+Admin --> UC_DelUser
+Admin --> UC_Roles
+Admin --> UC_RegEquipo
+Admin --> UC_ConsInv
+Admin --> UC_EditEquipo
+Admin --> UC_CambiarEstado
+Admin --> UC_Bajas
+Admin --> UC_Evidencias
+Admin --> UC_GestSedes
+Admin --> UC_GestCat
+Admin --> UC_GestTipos
+Admin --> UC_GestPersonal
+Admin --> UC_GestProv
+Admin --> UC_TomaFisica
+Admin --> UC_Novedades
+Admin --> UC_ConsSol
+Admin --> UC_AprobarSol
+Admin --> UC_RechazarSol
+Admin --> UC_ConsPrest
+Admin --> UC_RegPrest
+Admin --> UC_Devolucion
+Admin --> UC_Recordatorios
+Admin --> UC_RegManto
+Admin --> UC_ConsManto
+Admin --> UC_ActManto
+Admin --> UC_Danados
+Admin --> UC_Actas
+Admin --> UC_Auditoria
+Admin --> UC_Historial
+Admin --> UC_Dashboard
+Admin --> UC_Reportes
+Admin --> UC_StockCritico
+Admin --> UC_Notificaciones
+
+' Relaciones del Docente
+Docente --> UC_Login
+Docente --> UC_Logout
+Docente --> UC_ConsInv
+Docente --> UC_SolPrest
+Docente --> UC_MisPrest
+Docente --> UC_Notificaciones
+
+' Relaciones del Estudiante
+Estudiante --> UC_Login
+Estudiante --> UC_Logout
+Estudiante --> UC_ConsInv
+Estudiante --> UC_SolPrest
+Estudiante --> UC_MisPrest
+Estudiante --> UC_Notificaciones
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+title MIC - Diagrama de Casos de Uso General
+left to right direction
+skinparam packageStyle rectangle
+skinparam nodesep 50
+skinparam ranksep 100
+
+actor "Administrador" as Admin
+actor "Docente" as Docente
+actor "Estudiante" as Estudiante
+
+package "MIC - Módulo de Inventario y Control" {
+  
+  usecase "Gestión de Usuarios y Roles" as ModUsuarios
+  usecase "Gestión de Catálogos (Sedes, Categorías)" as ModCatalogos
+  usecase "Gestión de Inventario (Altas, Bajas, Mantenimiento)" as ModInventario
+  usecase "Gestión de Préstamos y Devoluciones" as ModPrestamos
+  usecase "Consultas, Reportes y Dashboard" as ModReportes
+  usecase "Auditoría, Actas y Toma Física" as ModAuditoria
+  
+}
+
+' Relaciones del Administrador
+Admin --> ModUsuarios
+Admin --> ModCatalogos
+Admin --> ModInventario
+Admin --> ModPrestamos
+Admin --> ModReportes
+Admin --> ModAuditoria
+
+' Relaciones del Docente
+Docente --> ModInventario : "Consulta"
+Docente --> ModPrestamos : "Solicita/Devuelve"
+
+' Relaciones del Estudiante
+Estudiante --> ModInventario : "Consulta"
+Estudiante --> ModPrestamos : "Solicita/Devuelve"
+
+@enduml

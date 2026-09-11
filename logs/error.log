@@ -286,3 +286,4 @@
 [2026-09-02 23:07:16] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `inventario_general` (`id`) ON DELETE CASCADE)
 [2026-09-02 23:07:19] Error registrando historial: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mic_test`.`elemento_historial`, CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL)
 [2026-09-02 23:07:19] PHP Warning [2]: Undefined array key "tipo" en C:\xampp\htdocs\MIC\modulo_inventario_general\helpers_importacion.php línea 381
+[2026-09-04 23:01:00] Toma física - error en acción 'iniciar_toma': La sede seleccionada no existe

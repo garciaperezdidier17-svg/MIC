@@ -1,0 +1,150 @@
+@startuml
+title MIC - Diagrama Entidad-Relación (Base de Datos Real)
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam EntityFontSize 10
+skinparam EntityAttributeFontSize 9
+
+' ===============================================
+' MÓDULO: USUARIOS Y PERMISOS
+' ===============================================
+together {
+  entity "roles" as roles {
+    * id : INT <<PK>>
+    --
+    nombre : VARCHAR(50)
+  }
+
+  entity "usuarios" as usuarios {
+    * id : INT <<PK>>
+    --
+    nombre : VARCHAR(100)
+    rol_id : INT <<FK>>
+  }
+
+  entity "estudiantes" as estudiantes {
+    * id : INT <<PK>>
+    --
+    id_usuario : INT <<FK>>
+  }
+
+  entity "profesores" as profesores {
+    * id : INT <<PK>>
+    --
+    sede_id : INT <<FK>>
+  }
+}
+
+' ===============================================
+' MÓDULO: UBICACIONES Y CATÁLOGOS
+' ===============================================
+together {
+  entity "sedes" as sedes {
+    * id : INT <<PK>>
+    --
+    nombre : VARCHAR(100)
+  }
+
+  entity "categorias" as categorias {
+    * id : INT <<PK>>
+    --
+    nombre : VARCHAR(50)
+  }
+
+  entity "tipo_equipo" as tipo_equipo {
+    * id : INT <<PK>>
+    --
+    categoria_id : INT <<FK>>
+  }
+}
+
+' ===============================================
+' MÓDULO: INVENTARIO PRINCIPAL
+' ===============================================
+together {
+  entity "equipos" as equipos {
+    * id : INT <<PK>>
+    --
+    codigo_interno : VARCHAR(50)
+    id_tipo : INT <<FK>>
+    id_categoria : INT <<FK>>
+    id_sede : INT <<FK>>
+  }
+
+  entity "inventario_general" as inv_general {
+    * id : INT <<PK>>
+    --
+    id_sede : INT <<FK>>
+    profesor_id : INT <<FK>>
+  }
+}
+
+' ===============================================
+' MÓDULO: PRÉSTAMOS
+' ===============================================
+together {
+  entity "solicitudes" as solicitudes {
+    * id : INT <<PK>>
+    --
+    id_usuario : INT <<FK>>
+    id_equipo : INT <<FK>>
+  }
+
+  entity "prestamos" as prestamos {
+    * id : INT <<PK>>
+    --
+    id_solicitud : INT <<FK>>
+    id_equipo : INT <<FK>>
+  }
+}
+
+' ===============================================
+' MÓDULO: MANTENIMIENTO E HISTORIAL
+' ===============================================
+together {
+  entity "mantenimiento" as mantenimiento {
+    * id : INT <<PK>>
+    --
+    id_equipo : INT <<FK>>
+    id_usuario : INT <<FK>>
+  }
+
+  entity "movimientos" as movimientos {
+    * id : INT <<PK>>
+    --
+    id_equipo : INT <<FK>>
+    id_usuario : INT <<FK>>
+  }
+  
+  entity "elemento_historial" as historial {
+    * id : INT <<PK>>
+    --
+    elemento_id : INT <<FK>>
+  }
+}
+
+' ===============================================
+' RELACIONES DIRECCIONALES (Para evitar espagueti)
+' ===============================================
+roles ||-down-o{ usuarios
+usuarios ||-down-o| estudiantes
+
+categorias ||-right-o{ tipo_equipo
+tipo_equipo ||-down-o{ equipos
+
+sedes ||-down-o{ profesores
+sedes ||-down-o{ equipos
+sedes ||-down-o{ inv_general
+profesores ||-right-o{ inv_general
+
+usuarios ||-right-o{ solicitudes
+solicitudes ||-down-o| prestamos
+equipos ||-left-o{ solicitudes
+equipos ||-left-o{ prestamos
+
+equipos ||-down-o{ mantenimiento
+equipos ||-down-o{ movimientos
+inv_general ||-down-o{ historial
+
+@enduml
