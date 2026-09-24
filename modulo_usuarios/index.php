@@ -3,6 +3,10 @@ require_once '../config/conexion.php';
 if (!estaLogueado()) { header('Location: ../index.php'); exit; }
 if (!esAdmin()) { header('Location: ../modulo_prestamos/solicitudes.php'); exit; }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    verificarCSRF();
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['crear_usuario'])) {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
@@ -235,6 +239,7 @@ require_once '../includes/sidebar.php';
                                 </form>
                                 <?php if ($u['activo']): ?>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('¿Desactivar este usuario?')">
+                                    <?php echo campoCSRF(); ?>
                                     <input type="hidden" name="eliminar_usuario" value="1">
                                     <input type="hidden" name="id" value="<?php echo $u['id']; ?>">
                                     <button type="submit" class="btn-icon delete" style="border:none;background:none;cursor:pointer;" title="Desactivar">
@@ -243,6 +248,7 @@ require_once '../includes/sidebar.php';
                                 </form>
                                 <?php else: ?>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('¿Activar este usuario?')">
+                                    <?php echo campoCSRF(); ?>
                                     <input type="hidden" name="activar_usuario" value="1">
                                     <input type="hidden" name="id" value="<?php echo $u['id']; ?>">
                                     <button type="submit" class="btn-icon" style="border:none;background:none;cursor:pointer;color:var(--success);" title="Activar">
@@ -250,6 +256,7 @@ require_once '../includes/sidebar.php';
                                     </button>
                                 </form>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('¿ESTÁS SEGURO? Esta acción ELIMINARÁ DEFINITIVAMENTE este usuario. No se puede deshacer.')">
+                                    <?php echo campoCSRF(); ?>
                                     <input type="hidden" name="eliminar_usuario_perm" value="1">
                                     <input type="hidden" name="id" value="<?php echo $u['id']; ?>">
                                     <button type="submit" class="btn-icon" style="border:none;background:none;cursor:pointer;color:var(--danger);" title="Eliminar Definitivamente">
@@ -275,6 +282,7 @@ require_once '../includes/sidebar.php';
         </div>
         <div class="modal-body">
             <form method="POST" action="">
+                <?php echo campoCSRF(); ?>
                 <input type="hidden" name="crear_usuario" value="1">
                 <div class="form-group">
                     <label>Usuario <span class="required">*</span></label>
@@ -300,6 +308,7 @@ require_once '../includes/sidebar.php';
         </div>
         <div class="modal-body">
             <form method="POST" action="">
+                <?php echo campoCSRF(); ?>
                 <input type="hidden" name="editar_usuario" value="1">
                 <input type="hidden" name="id" id="edit_id">
                 <div class="form-group">

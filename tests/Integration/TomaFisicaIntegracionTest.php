@@ -37,7 +37,7 @@ class TomaFisicaIntegracionTest extends TestCase
             'nombre' => 'Computador TEST',
             'tipo' => 'Computador de escritorio',
             'estado' => 'bueno',
-            'ubicacion' => 'Salón 01',
+            'ubicacion' => 'Aula de Informática',
             'id_sede' => 2,
             'activo' => 1,
         ], $extra);
@@ -49,7 +49,7 @@ class TomaFisicaIntegracionTest extends TestCase
 
     private function crearToma(): int
     {
-        return iniciarTomaFisica($this->conn, 2, 'Salón 01', $this->usuarioId);
+        return iniciarTomaFisica($this->conn, 2, 'Aula de Informática', $this->usuarioId);
     }
 
     /* ============ QR / BÚSQUEDA ============ */
@@ -79,7 +79,7 @@ class TomaFisicaIntegracionTest extends TestCase
         $toma = $this->conn->query("SELECT * FROM tomas_fisicas WHERE id=$tomaId")->fetch();
         $this->assertSame('en_progreso', $toma['estado']);
         $this->assertSame(2, (int)$toma['sede_id']);
-        $this->assertSame('Salón 01', $toma['ubicacion']);
+        $this->assertSame('Aula de Informática', $toma['ubicacion']);
         $this->assertSame(2, (int)$toma['total_esperados']);
         $det = $this->conn->query("SELECT * FROM tomas_fisicas_detalle WHERE toma_fisica_id=$tomaId ORDER BY id")->fetchAll();
         $this->assertCount(2, $det);
@@ -502,9 +502,9 @@ class TomaFisicaIntegracionTest extends TestCase
         $html = construirInformeTomaHTML($toma, $detalles, [], $GLOBALS['institucion'], '');
 
         $this->assertStringContainsString('Informe de Toma Física e Inspección de Activos', $html);
-        $this->assertStringContainsString('Institución Educativa 20 de Julio', $html);
+        $this->assertStringContainsString('MIC', $html);
         $this->assertStringContainsString('El Porvenir', $html);
-        $this->assertStringContainsString('Salón 01', $html);
+        $this->assertStringContainsString('Aula de Informática', $html);
         $this->assertStringContainsString('Admin TF', $html);
         $this->assertStringContainsString('20J-02-S001-001', $html);
         $this->assertStringContainsString('firma-linea', $html);

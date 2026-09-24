@@ -8,10 +8,10 @@ if (basename($scriptDir) === 'actions') { $scriptDir = dirname($scriptDir); }
 elseif (basename($scriptDir) === 'modulo_inventario' || basename($scriptDir) === 'modulo_inventario_general' || basename($scriptDir) === 'modulo_prestamos' || basename($scriptDir) === 'modulo_dashboard' || basename($scriptDir) === 'modulo_login' || basename($scriptDir) === 'modulo_reportes' || basename($scriptDir) === 'modulo_usuarios' || basename($scriptDir) === 'modulo_sedes' || basename($scriptDir) === 'modulo_toma_fisica' || basename($scriptDir) === 'modulo_auditoria') {
     $scriptDir = dirname($scriptDir);
 }
-define('BASE_URL', rtrim($scriptDir, '/') . '/');
+if (!defined('BASE_URL')) { define('BASE_URL', rtrim($scriptDir, '/') . '/'); }
 
 $host = 'localhost';
-$dbname = 'mic';
+$dbname = defined('MIC_TESTING') && MIC_TESTING ? 'mic_test' : 'mic';
 $username = 'root';
 $password = '';
 
@@ -26,9 +26,10 @@ try {
     );
 }
 
-function estaLogueado() {
-    return isset($_SESSION['user_id']);
-}
+if (!function_exists('estaLogueado')) {
+    function estaLogueado() {
+        return isset($_SESSION['user_id']);
+    }
 
 function esAdmin() {
     return isset($_SESSION['user_rol']) && $_SESSION['user_rol'] === 'admin';
@@ -95,4 +96,5 @@ function obtenerLogo() {
         }
     }
     return null;
+}
 }

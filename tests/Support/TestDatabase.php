@@ -116,6 +116,34 @@ final class TestDatabase
                 (5, '05', 'La Paz', '', 0, 1)");
         }
 
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `ubicaciones` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `id_sede` int(11) NOT NULL,
+          `codigo` varchar(10) NOT NULL,
+          `nombre` varchar(100) NOT NULL,
+          `estado` tinyint(1) NOT NULL DEFAULT 1,
+          PRIMARY KEY (`id`),
+          UNIQUE KEY `idx_sede_codigo` (`id_sede`,`codigo`),
+          CONSTRAINT `fk_ubicacion_sede` FOREIGN KEY (`id_sede`) REFERENCES `sedes` (`id`) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+
+        $ubic = $pdo->query('SELECT COUNT(*) FROM ubicaciones')->fetchColumn();
+        if ((int)$ubic === 0) {
+            $pdo->exec("INSERT INTO ubicaciones (id_sede, codigo, nombre, estado) VALUES
+                (1, 'REC', 'Rectoría', 1),
+                (1, 'COO', 'Coordinación', 1),
+                (1, 'SEC', 'Secretaría', 1),
+                (1, 'BIB', 'Biblioteca', 1),
+                (1, 'INF1', 'Aula de Informática 1', 1),
+                (1, 'INF2', 'Aula de Informática 2', 1),
+                (1, 'AUD', 'Auditorio', 1),
+                (1, 'BOD', 'Bodega', 1),
+                (2, 'INF1', 'Aula de Informática', 1),
+                (3, 'INF1', 'Aula de Informática', 1),
+                (4, 'INF1', 'Aula de Informática', 1),
+                (5, 'INF1', 'Aula de Informática', 1)");
+        }
+
         $roles = $pdo->query('SELECT COUNT(*) FROM roles')->fetchColumn();
         if ((int)$roles === 0) {
             $pdo->exec("INSERT INTO roles (id, nombre, descripcion) VALUES

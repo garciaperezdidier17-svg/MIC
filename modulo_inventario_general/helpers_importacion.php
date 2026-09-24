@@ -378,7 +378,7 @@ function importarFilasValidas($conn, array $filasValidas, $usuarioId) {
                 $codigo_interno !== '' ? $codigo_interno : null,
                 $fila['nombre'],
                 $fila['categoria'] !== '' ? $fila['categoria'] : null,
-                $fila['tipo'],
+                isset($fila['tipo']) ? $fila['tipo'] : null,
                 $fila['marca'] !== '' ? $fila['marca'] : null,
                 $fila['modelo'] !== '' ? $fila['modelo'] : null,
                 $fila['numero_serie'] !== '' ? $fila['numero_serie'] : null,
@@ -408,7 +408,7 @@ function importarFilasValidas($conn, array $filasValidas, $usuarioId) {
                 null,
                 [
                     'nombre' => $fila['nombre'], 'codigo' => $codigo_interno !== '' ? $codigo_interno : null,
-                    'tipo' => $fila['tipo'], 'categoria' => $fila['categoria'] ?: null,
+                    'tipo' => $fila['tipo'] ?? null, 'categoria' => $fila['categoria'] ?: null,
                     'sede' => $fila['sede_id'] ? $sedeNombre : null, 'ubicacion' => $fila['ubicacion'],
                     'responsable' => $fila['profesor_id'] ? (string)$fila['profesor_id'] : null,
                     'estado' => mb_strtolower($fila['estado']), 'numero_serie' => $fila['numero_serie'] ?: null,

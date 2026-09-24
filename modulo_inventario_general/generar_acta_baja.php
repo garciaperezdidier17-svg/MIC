@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once '../config/conexion.php';
 require_once '../vendor/autoload.php';
 if (!estaLogueado() || !esAdmin()) { header('Location: ../modulo_login/index.php'); exit; }
@@ -39,4 +39,5 @@ $logoPath = function_exists('obtenerLogo') && obtenerLogo() ? __DIR__ . '/../' .
 $mpdf = new Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_top' => 14, 'margin_bottom' => 14, 'margin_left' => 14, 'margin_right' => 14]);
 $html = construirActaBajaHTML($institucion, $elInfo, $datosBaja, $logoPath);
 $mpdf->WriteHTML($html);
-$mpdf->Output('Acta_Baja_' . ($elInfo['codigo_interno'] ?: $elInfo['id']) . '.pdf', \Mpdf\Output\Destination::INLINE);
+    if (ob_get_length()) { ob_end_clean(); }
+    $mpdf->Output('Acta_Baja_' . ($elInfo['codigo_interno'] ?: $elInfo['id']) . '.pdf', \Mpdf\Output\Destination::INLINE);

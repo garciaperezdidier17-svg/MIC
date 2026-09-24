@@ -41,7 +41,7 @@ require_once '../includes/sidebar.php';
 
         <p><strong>Pantalla de inicio:</strong> Al abrir el sistema en su navegador, aparece la pantalla de inicio de sesión. Está compuesta por:</p>
         <ul>
-            <li><strong>Logo y nombre:</strong> Arriba, el logo de la institución (si se cargó) y el nombre "MIC" con el lema "Institución Educativa 20 de Julio".</li>
+            <li><strong>Logo y nombre:</strong> Arriba, el logo de la institución (si se cargó) y el nombre "MIC" con el lema "<?php echo $instNombre; ?>".</li>
             <li><strong>Campo "Usuario":</strong> Ingrese aquí el nombre de usuario que creó al registrarse o el que le asignó el administrador.</li>
             <li><strong>Campo "Contraseña":</strong> Ingrese su contraseña. Los caracteres se ocultan por seguridad.</li>
             <li><strong>Botón "Ingresar":</strong> Haga clic aquí o presione Enter para iniciar sesión.</li>

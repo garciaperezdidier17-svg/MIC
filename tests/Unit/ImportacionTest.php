@@ -244,7 +244,7 @@ class ImportacionTest extends TestCase
         $this->assertCount(3, $res['ids']);
 
         $codigos = $this->conn->query("SELECT codigo_interno FROM inventario_general ORDER BY id")->fetchAll(PDO::FETCH_COLUMN);
-        $this->assertSame(['20J-01-INF1-001', '20J-01-INF1-002', '20J-01-INF1-003'], $codigos);
+        $this->assertSame(['MIC-01-INF1-001', 'MIC-01-INF1-002', 'MIC-01-INF1-003'], $codigos);
 
         $fila1 = $this->conn->query("SELECT estado, valor_compra FROM inventario_general ORDER BY id LIMIT 1")->fetch(PDO::FETCH_ASSOC);
         $this->assertSame('bueno', $fila1['estado']);

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once '../config/conexion.php';
 require_once '../vendor/autoload.php';
 if (!estaLogueado() || !esAdmin()) { header('Location: ../modulo_login/index.php'); exit; }
@@ -35,4 +35,5 @@ $html = construirActaPrestamoHTML($institucion, $prestamo, $elementos, $logoPath
 $mpdf->WriteHTML($html);
 
 $nombrePdf = $tipo === 'devolucion' ? 'Acta_Devolucion_Prestamo_' . $id . '.pdf' : 'Acta_Entrega_Prestamo_' . $id . '.pdf';
+if (ob_get_length()) { ob_end_clean(); }
 $mpdf->Output($nombrePdf, \Mpdf\Output\Destination::INLINE);

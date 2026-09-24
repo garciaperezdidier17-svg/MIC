@@ -1100,7 +1100,7 @@ class MICUnitTest extends TestCase
         $html = construirActaHTML($institucion, $profesor, 'Sede Principal', $elementos, ['Aula de Informática 1'], null);
 
         $this->assertStringContainsString('Acta de Entrega y Responsabilidad de Bienes', $html);
-        $this->assertStringContainsString('Institución Educativa 20 de Julio', $html);
+        $this->assertStringContainsString('MIC', $html);
         $this->assertStringContainsString('Ana Pérez', $html);
         $this->assertStringContainsString('20J-01-INF1-001', $html);
         $this->assertStringContainsString('$1,500,000', $html);

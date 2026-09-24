@@ -10,19 +10,26 @@ if (!esAdmin()) {
     exit;
 }
 
+require_once '../includes/InstitucionHelper.php';
+
 $codigoInterno = trim($_POST['codigo_interno'] ?? '');
 $nombreEquipo = trim($_POST['nombre'] ?? '');
 $idTipo = !empty($_POST['id_tipo']) ? $_POST['id_tipo'] : null;
 $idCategoria = !empty($_POST['id_categoria']) ? $_POST['id_categoria'] : null;
 $idSede = !empty($_POST['id_sede']) ? $_POST['id_sede'] : null;
+$idUbicacion = !empty($_POST['id_ubicacion']) ? $_POST['id_ubicacion'] : null;
 $estadoEquipo = $_POST['estado'] ?? 'disponible';
-$stockEquipo = intval($_POST['stock']);
+$stockEquipo = intval($_POST['stock'] ?? 0);
 $descripcionEquipo = !empty($_POST['descripcion']) ? trim($_POST['descripcion']) : null;
 $vrComercial = !empty($_POST['vr_comercial']) ? floatval($_POST['vr_comercial']) : 0;
 $vidaUtil = !empty($_POST['vida_util']) ? intval($_POST['vida_util']) : 0;
 
-if (empty($codigoInterno) || empty($nombreEquipo)) {
-    $_SESSION['mensaje'] = 'El código interno y el nombre son obligatorios';
+if (empty($codigoInterno)) {
+    $codigoInterno = InstitucionHelper::generarCodigoInventario($idSede, $idUbicacion);
+}
+
+if (empty($nombreEquipo)) {
+    $_SESSION['mensaje'] = 'El nombre es obligatorio';
     header('Location: ../modulo_inventario/index.php');
     exit;
 }
@@ -35,9 +42,9 @@ if ($stmtVerificar->fetch()) {
     exit;
 }
 
-$stmtInsertar = $conn->prepare("INSERT INTO equipos (codigo_interno, nombre, id_tipo, id_categoria, id_sede, estado, stock, descripcion_articulo, marca, modelo, numero_serie, procesador, ram, almacenamiento, accesorios, fecha_ingreso, observacion, vr_comercial, vida_util)
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmtInsertar->execute([$codigoInterno, $nombreEquipo, $idTipo, $idCategoria, $idSede, $estadoEquipo, $stockEquipo, $descripcionEquipo, $_POST['marca'] ?? '', $_POST['modelo'] ?? '', $_POST['numero_serie'] ?? '', $_POST['procesador'] ?? '', $_POST['ram'] ?? '', $_POST['almacenamiento'] ?? '', $_POST['accesorios'] ?? '', $_POST['fecha_ingreso'] ?? null, $_POST['observacion'] ?? '', $vrComercial, $vidaUtil]);
+$stmtInsertar = $conn->prepare("INSERT INTO equipos (codigo_interno, nombre, id_tipo, id_categoria, id_sede, id_ubicacion, estado, stock, descripcion_articulo, marca, modelo, numero_serie, procesador, ram, almacenamiento, accesorios, fecha_ingreso, observacion, vr_comercial, vida_util)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmtInsertar->execute([$codigoInterno, $nombreEquipo, $idTipo, $idCategoria, $idSede, $idUbicacion, $estadoEquipo, $stockEquipo, $descripcionEquipo, $_POST['marca'] ?? '', $_POST['modelo'] ?? '', $_POST['numero_serie'] ?? '', $_POST['procesador'] ?? '', $_POST['ram'] ?? '', $_POST['almacenamiento'] ?? '', $_POST['accesorios'] ?? '', $_POST['fecha_ingreso'] ?? null, $_POST['observacion'] ?? '', $vrComercial, $vidaUtil]);
 
 $_SESSION['mensaje'] = 'Equipo agregado correctamente';
 header('Location: ../modulo_inventario/index.php');

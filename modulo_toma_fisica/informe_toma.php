@@ -42,6 +42,7 @@ try {
     ]);
     $mpdf->SetTitle('Informe Toma Física #' . $tomaId . ' - MIC');
     $mpdf->WriteHTML(construirInformeTomaHTML($toma, $detalles, $novedades, $institucion, $logo));
+    if (ob_get_length()) { ob_end_clean(); }
     $mpdf->Output('informe_toma_' . $tomaId . '_' . date('Y-m-d') . '.pdf', \Mpdf\Output\Destination::INLINE);
     exit;
 } catch (Throwable $e) {

@@ -246,8 +246,8 @@ require_once '../includes/sidebar.php';
             <form method="POST" action="../actions/crear_equipo.php">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Código Interno <span class="required">*</span></label>
-                        <input type="text" class="form-control" name="codigo_interno" required>
+                        <label>Código Interno <small>(Dejar en blanco para autogenerar)</small></label>
+                        <input type="text" class="form-control" name="codigo_interno">
                     </div>
                     <div class="form-group">
                         <label>Nombre <span class="required">*</span></label>
@@ -274,14 +274,22 @@ require_once '../includes/sidebar.php';
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Sede</label>
-                    <select class="form-control" name="id_sede">
-                        <option value="">Seleccionar</option>
-                        <?php foreach($sedes as $s): ?>
-                        <option value="<?php echo $s['id']; ?>"><?php echo htmlspecialchars($s['nombre']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Sede</label>
+                        <select class="form-control" name="id_sede" id="select_sede">
+                            <option value="">Seleccionar</option>
+                            <?php foreach($sedes as $s): ?>
+                            <option value="<?php echo $s['id']; ?>"><?php echo htmlspecialchars($s['nombre']); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ubicación</label>
+                        <select class="form-control" name="id_ubicacion" id="select_ubicacion">
+                            <option value="">Seleccionar Sede primero...</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
