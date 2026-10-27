@@ -272,8 +272,11 @@ class ImportacionTest extends TestCase
         ])['validas'];
         unset($filas[1]['tipo']);
 
+        $email = 'import-error-' . bin2hex(random_bytes(4)) . '@test.local';
+        $this->conn->prepare("INSERT INTO usuarios (nombre, email, password_hash, rol, rol_id, activo) VALUES ('Importacion Error', ?, 'x', 'admin', 1, 1)")->execute([$email]);
+        $usuarioId = (int)$this->conn->lastInsertId();
         $this->expectException(Throwable::class);
-        importarFilasValidas($this->conn, $filas, 1);
+        importarFilasValidas($this->conn, $filas, $usuarioId);
 
         $total = $this->conn->query("SELECT COUNT(*) FROM inventario_general")->fetchColumn();
         $this->assertSame(0, (int)$total);

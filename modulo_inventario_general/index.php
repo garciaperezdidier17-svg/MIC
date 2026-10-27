@@ -86,11 +86,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['agregar'])) {
         $ubicCodigo = '';
         $codigo_interno = '';
         if ($sedeInfo) {
+            $bloqueado = $conn->query("SELECT GET_LOCK('mic_codigo_elemento', 15)")->fetchColumn();
+            if (!$bloqueado) { throw new RuntimeException('No se pudo reservar un consecutivo. Intente nuevamente.'); }
             $ubicCodigo = obtenerCodigoUbicacion($sedeInfo['nombre'], $ubicacion);
             $codigo_interno = generarCodigoElemento($conn, $institucion['codigo'], $sedeInfo['nombre'], $sedeInfo['codigo'], $ubicCodigo);
         }
         $conn->prepare("INSERT INTO inventario_general (codigo_interno, nombre, categoria, tipo, marca, modelo, numero_serie, procesador, ram, almacenamiento, accesorios, estado, ubicacion, codigo_ubicacion, id_sede, profesor_id, origen_bien, documento_no_disponible, proveedor_id, numero_factura, fecha_compra, valor_compra, numero_orden_compra, fecha_garantia, donante_nombre, fecha_donacion, institucion_origen, fecha_transferencia, descripcion_origen, fecha_ingreso, descripcion, observacion, vr_comercial, vida_util, disponible_para_prestamo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
             ->execute([$codigo_interno ?: null, $nombre, $categoria ?: null, $tipo, $marca ?: null, $modelo ?: null, $numero_serie ?: null, $procesador ?: null, $ram ?: null, $almacenamiento ?: null, $accesorios ?: null, $estado, $ubicacion, $ubicCodigo ?: null, $id_sede, $profesor_id, $origen_bien, $documento_no_disponible, $proveedor_id, $numero_factura ?: null, $fecha_compra, $valor_compra, $numero_orden_compra ?: null, $fecha_garantia, $donante_nombre ?: null, $fecha_donacion, $institucion_origen ?: null, $fecha_transferencia, $descripcion_origen ?: null, $fecha_ingreso, $descripcion ?: null, $observacion ?: null, $vr_comercial, $vida_util, $disponible_para_prestamo]);
+        if ($sedeInfo) { $conn->query("SELECT RELEASE_LOCK('mic_codigo_elemento')"); }
         $nuevoId = $conn->lastInsertId();
         $docField = $documento_no_disponible ? null : campoDocumentoDe($origen_bien);
         if ($docField && isset($_FILES[$docField]) && $_FILES[$docField]['error'] === UPLOAD_ERR_OK) {

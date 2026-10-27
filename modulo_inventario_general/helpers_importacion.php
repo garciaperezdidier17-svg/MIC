@@ -337,7 +337,7 @@ function importarFilasValidas($conn, array $filasValidas, $usuarioId) {
     }
     global $institucion, $catalogosUbicaciones;
 
-    $bloqueado = $conn->query("SELECT GET_LOCK('mic_importar_excel', 15)")->fetchColumn();
+    $bloqueado = $conn->query("SELECT GET_LOCK('mic_codigo_elemento', 15)")->fetchColumn();
     if (!$bloqueado) {
         throw new RuntimeException('La importación está ocupada por otro proceso. Intente nuevamente.');
     }
@@ -356,6 +356,9 @@ function importarFilasValidas($conn, array $filasValidas, $usuarioId) {
         );
 
         foreach ($filasValidas as $fila) {
+            if (!array_key_exists('tipo', $fila) || trim((string)$fila['tipo']) === '') {
+                throw new RuntimeException('Fila validada incompleta: falta el tipo del elemento.');
+            }
             $sedeNombre = '';
             foreach ($catalogosUbicaciones as $nombre => $data) {
                 if (($data['codigo'] ?? '') === $fila['sede_codigo']) {
@@ -378,7 +381,7 @@ function importarFilasValidas($conn, array $filasValidas, $usuarioId) {
                 $codigo_interno !== '' ? $codigo_interno : null,
                 $fila['nombre'],
                 $fila['categoria'] !== '' ? $fila['categoria'] : null,
-                isset($fila['tipo']) ? $fila['tipo'] : null,
+                $fila['tipo'] ?? null,
                 $fila['marca'] !== '' ? $fila['marca'] : null,
                 $fila['modelo'] !== '' ? $fila['modelo'] : null,
                 $fila['numero_serie'] !== '' ? $fila['numero_serie'] : null,
@@ -408,7 +411,7 @@ function importarFilasValidas($conn, array $filasValidas, $usuarioId) {
                 null,
                 [
                     'nombre' => $fila['nombre'], 'codigo' => $codigo_interno !== '' ? $codigo_interno : null,
-                    'tipo' => $fila['tipo'] ?? null, 'categoria' => $fila['categoria'] ?: null,
+                    'tipo' => $fila['tipo'] ?? null, 'categoria' => $fila['categoria'] ?? null,
                     'sede' => $fila['sede_id'] ? $sedeNombre : null, 'ubicacion' => $fila['ubicacion'],
                     'responsable' => $fila['profesor_id'] ? (string)$fila['profesor_id'] : null,
                     'estado' => mb_strtolower($fila['estado']), 'numero_serie' => $fila['numero_serie'] ?: null,
@@ -427,7 +430,7 @@ function importarFilasValidas($conn, array $filasValidas, $usuarioId) {
         throw $e;
     } finally {
         if ($bloqueado) {
-            $conn->query("SELECT RELEASE_LOCK('mic_importar_excel')")->fetchColumn();
+            $conn->query("SELECT RELEASE_LOCK('mic_codigo_elemento')")->fetchColumn();
         }
     }
 }

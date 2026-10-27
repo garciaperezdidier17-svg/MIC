@@ -76,7 +76,7 @@ require_once '../includes/sidebar.php';
         <?php echo campoCSRF(); ?>
         <div class="form-group">
             <label>Sede <span class="required">*</span></label>
-            <select class="form-control" name="sede_id" id="tf_sede_id" onchange="cargarUbicacionesToma()">
+            <select class="form-control" name="sede_id" id="tf_sede_id" onchange="cargarUbicacionesToma()" required>
                 <option value="">Seleccione la sede</option>
                 <?php foreach ($sedes as $s): ?>
                 <option value="<?php echo $s['id']; ?>"><?php echo htmlspecialchars($s['nombre']); ?></option>
@@ -85,7 +85,7 @@ require_once '../includes/sidebar.php';
         </div>
         <div class="form-group">
             <label>Ubicación <span class="required">*</span></label>
-            <select class="form-control" name="ubicacion" id="tf_ubicacion" disabled>
+            <select class="form-control" name="ubicacion" id="tf_ubicacion" disabled required>
                 <option value="">Primero seleccione la sede</option>
             </select>
         </div>
@@ -114,6 +114,26 @@ function cargarUbicacionesToma() {
     });
     sel.disabled = false;
 }
+document.getElementById('formIniciarToma').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var form = this;
+    var boton = form.querySelector('button[type="submit"]');
+    boton.disabled = true;
+    fetch(form.action, { method: 'POST', body: new FormData(form) })
+        .then(function(response) {
+            return response.json().then(function(datos) {
+                if (!response.ok || !datos.ok) {
+                    throw new Error(datos.error || 'No se pudo iniciar la toma física.');
+                }
+                return datos;
+            });
+        })
+        .then(function() { window.location.reload(); })
+        .catch(function(error) {
+            alert(error.message || 'Error de conexión al iniciar la toma física.');
+            boton.disabled = false;
+        });
+});
 </script>
 
 <?php else: ?>

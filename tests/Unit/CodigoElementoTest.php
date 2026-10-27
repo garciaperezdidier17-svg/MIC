@@ -24,10 +24,14 @@ class CodigoElementoTest extends TestCase
 
     private function insertarElemento(string $codigoUbicacion): int
     {
-        $stmt = $this->conn->prepare(
-            "INSERT INTO inventario_general (nombre, tipo, estado, id_sede, codigo_ubicacion, activo) VALUES ('PC', 'Computador de escritorio', 'bueno', 1, ?, 1)"
-        );
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM inventario_general WHERE codigo_ubicacion=?");
         $stmt->execute([$codigoUbicacion]);
+        $consecutivo = (int)$stmt->fetchColumn() + 1;
+        $codigo = sprintf('20J-01-%s-%03d', $codigoUbicacion, $consecutivo);
+        $stmt = $this->conn->prepare(
+            "INSERT INTO inventario_general (codigo_interno, nombre, tipo, estado, id_sede, codigo_ubicacion, activo) VALUES (?, 'PC', 'Computador de escritorio', 'bueno', 1, ?, 1)"
+        );
+        $stmt->execute([$codigo, $codigoUbicacion]);
         return (int)$this->conn->lastInsertId();
     }
 
@@ -44,6 +48,18 @@ class CodigoElementoTest extends TestCase
         $this->insertarElemento('INF01');
         $codigo = generarCodigoElemento($this->conn, '20J', 'Sede Principal', '01', 'INF01');
         $this->assertSame('20J-01-INF01-003', $codigo);
+    }
+
+    public function testConsecutivoNoRepiteCodigoTrasDesactivarElementoIntermedio(): void
+    {
+        $codigos = ['20J-01-INF01-001', '20J-01-INF01-002', '20J-01-INF01-003'];
+        foreach ($codigos as $codigo) {
+            $stmt = $this->conn->prepare("INSERT INTO inventario_general (codigo_interno, nombre, tipo, estado, id_sede, codigo_ubicacion, activo) VALUES (?, 'PC', 'Computador', 'bueno', 1, 'INF01', 1)");
+            $stmt->execute([$codigo]);
+        }
+        $this->conn->exec("UPDATE inventario_general SET activo=0 WHERE codigo_interno='20J-01-INF01-002'");
+
+        $this->assertSame('20J-01-INF01-004', generarCodigoElemento($this->conn, '20J', 'Sede Principal', '01', 'INF01'));
     }
 
     public function testConsecutivoIndependientePorUbicacion(): void

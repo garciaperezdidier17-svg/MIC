@@ -293,6 +293,7 @@ require_once '../includes/sidebar.php';
     </div>
 </div>
 
+<div style="display:none;">
 <div class="section-header">
     <h3><i class="fas fa-bell"></i> Alertas del Sistema</h3>
     <p>Estado actual del inventario</p>
@@ -325,6 +326,7 @@ require_once '../includes/sidebar.php';
         </div>
     </div>
     <?php endif; ?>
+</div>
 </div>
 
 <div class="section-header">
@@ -393,6 +395,7 @@ require_once '../includes/sidebar.php';
 </div>
 <?php endif; ?>
 
+<div style="display:none;">
 <div class="section-header">
     <h3><i class="fas fa-history"></i> Actividad Reciente</h3>
     <p>Últimas operaciones registradas en el sistema</p>
@@ -433,6 +436,7 @@ require_once '../includes/sidebar.php';
     </div>
 </div>
 
+</div>
 <div class="section-header">
     <h3><i class="fas fa-chart-pie"></i> Analíticas</h3>
     <p>Vista general del sistema</p>

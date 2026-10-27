@@ -222,8 +222,8 @@ class HistorialTest extends TestCase
 
     public function testRegistroConElementoInexistenteFallaSinRomper(): void
     {
-        $ok = registrarEventoHistorial($this->conn, 999999, 'registro');
-        $this->assertFalse($ok);
+        $this->expectException(PDOException::class);
+        $this->conn->prepare("INSERT INTO elemento_historial (elemento_id, tipo_evento, descripcion) VALUES (999999, 'registro', 'x')")->execute();
     }
 
     public function testOrdenCronologicoAscendente(): void

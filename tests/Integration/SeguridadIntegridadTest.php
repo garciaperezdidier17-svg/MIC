@@ -72,6 +72,14 @@ class SeguridadIntegridadTest extends TestCase
         $this->assertFalse(esAdmin());
     }
 
+    public function testPostLoginSinTokenCsrfEsRechazado(): void
+    {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST = ['login' => '1', 'username' => 'alguien', 'password' => 'clave'];
+        $this->expectException(RuntimeException::class);
+        verificarCSRF();
+    }
+
     public function testEstaLogueadoConSesion(): void
     {
         $_SESSION['user_id'] = 1;

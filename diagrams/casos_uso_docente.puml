@@ -5,7 +5,9 @@ skinparam packageStyle rectangle
 skinparam nodesep 50
 skinparam ranksep 70
 
+actor "Usuario" as Usuario
 actor "Docente" as Docente
+Docente --|> Usuario
 
 together {
   package "Autenticación y sesión" {

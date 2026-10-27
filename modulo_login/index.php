@@ -10,6 +10,7 @@ $error = '';
 $exito = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+    verificarCSRF();
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
@@ -21,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($usuario && password_verify($password, $usuario['password_hash'])) {
+            session_regenerate_id(true);
             $_SESSION['user_id'] = $usuario['id'];
             $_SESSION['user_nombre'] = $usuario['nombre'];
             $_SESSION['user_email'] = $usuario['email'] ?? '';
@@ -40,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['registro'])) {
+    verificarCSRF();
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
@@ -308,6 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['registro'])) {
 
         <div id="loginPanel" class="auth-form active">
             <form method="POST" action="">
+                <?php echo campoCSRF(); ?>
                 <input type="hidden" name="login" value="1">
 
                 <div class="input-group">
@@ -328,6 +332,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['registro'])) {
 
         <div id="registroPanel" class="auth-form">
             <form method="POST" action="">
+                <?php echo campoCSRF(); ?>
                 <input type="hidden" name="registro" value="1">
 
                 <div class="input-group">

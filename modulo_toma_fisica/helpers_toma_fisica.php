@@ -10,7 +10,7 @@ require_once __DIR__ . '/../modulo_inventario_general/helpers_inventario.php';
 
 const SITUACIONES_VALIDAS = [
     'disponible', 'asignado', 'en_mantenimiento', 'en_reparacion',
-    'no_encontrado', 'en_investigacion', 'dado_de_baja',
+    'no_encontrado', 'en_investigacion', 'dado_de_baja', 'perdido',
 ];
 
 const TIPOS_NOVEDAD = [

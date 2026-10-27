@@ -24,7 +24,7 @@ function obtenerCodigoUbicacion($sedeNombre, $ubicacionNombre) {
 }
 
 function generarCodigoElemento($conn, $instCodigo, $sedeNombre, $sedeCodigo, $ubicCodigo) {
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM inventario_general WHERE codigo_ubicacion=? AND activo=1");
+    $stmt = $conn->prepare("SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(codigo_interno, '-', -1) AS UNSIGNED)), 0) FROM inventario_general WHERE codigo_ubicacion=? AND codigo_interno REGEXP '-[0-9]+$'");
     $stmt->execute([$ubicCodigo]);
     $consecutivo = (int)$stmt->fetchColumn() + 1;
     return sprintf('%s-%s-%s-%03d', $instCodigo, $sedeCodigo, $ubicCodigo, $consecutivo);

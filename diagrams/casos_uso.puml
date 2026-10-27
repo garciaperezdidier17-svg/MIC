@@ -8,8 +8,11 @@ skinparam ranksep 150
 skinparam linetype ortho
 
 actor "Administrador" as Admin
+actor "Usuario" as Usuario
 actor "Docente" as Docente
 actor "Estudiante" as Estudiante
+Docente --|> Usuario
+Estudiante --|> Usuario
 
 package "MIC - Módulo de Inventario y Control" {
   

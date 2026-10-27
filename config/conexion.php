@@ -10,10 +10,11 @@ elseif (basename($scriptDir) === 'modulo_inventario' || basename($scriptDir) ===
 }
 if (!defined('BASE_URL')) { define('BASE_URL', rtrim($scriptDir, '/') . '/'); }
 
-$host = 'localhost';
-$dbname = defined('MIC_TESTING') && MIC_TESTING ? 'mic_test' : 'mic';
-$username = 'root';
-$password = '';
+$dbLocal = is_file(__DIR__ . '/db.local.php') ? require __DIR__ . '/db.local.php' : [];
+$host = $dbLocal['host'] ?? 'localhost';
+$dbname = defined('MIC_TESTING') && MIC_TESTING ? 'mic_test' : ($dbLocal['database'] ?? 'mic');
+$username = $dbLocal['username'] ?? 'root';
+$password = $dbLocal['password'] ?? '';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);

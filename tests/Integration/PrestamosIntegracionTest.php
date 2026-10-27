@@ -158,4 +158,36 @@ class PrestamosIntegracionTest extends TestCase
         $this->expectException(PDOException::class);
         $stmt->execute([$this->estudianteUsuarioId, $this->estudianteId, $this->equipoId, null]);
     }
+
+    public function testDevolverElementoPerdidoLoMarcaNoDisponibleYNotifica(): void
+    {
+        $this->conn->prepare(
+            "INSERT INTO solicitudes (id_usuario, id_sede, fecha_solicitud, hora_solicitud, motivo, estado) VALUES (?, 1, CURDATE(), CURTIME(), 'Prueba de perdida', 'aprobada')"
+        )->execute([$this->estudianteUsuarioId]);
+        $solicitudId = (int)$this->conn->lastInsertId();
+        $this->conn->prepare(
+            "INSERT INTO prestamos (id_solicitud, id_estudiante, id_sede, fecha_prestamo, fecha_devolucion_esperada, hora_prestamo, estado) VALUES (?, ?, 1, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 3 DAY), CURTIME(), 'activo')"
+        )->execute([$solicitudId, $this->estudianteId]);
+        $prestamoId = (int)$this->conn->lastInsertId();
+
+        $this->conn->prepare("INSERT INTO inventario_general (codigo_interno, nombre, tipo, estado, situacion, id_sede, disponible_para_prestamo, activo) VALUES ('MIC-01-TEST-001', 'Elemento Perdido', 'Portatil', 'bueno', 'prestado', 1, 1, 1)")->execute();
+        $elementoId = (int)$this->conn->lastInsertId();
+        $this->conn->prepare("INSERT INTO prestamo_elementos (id_prestamo, id_elemento, cantidad, tipo_prestamo) VALUES (?, ?, 1, 'individual')")->execute([$prestamoId, $elementoId]);
+        $detalleId = (int)$this->conn->lastInsertId();
+
+        $resultado = registrarDevolucion($this->conn, $this->adminId, $prestamoId, [$detalleId => ['estado' => 'Perdido']]);
+
+        $this->assertTrue($resultado['ok'], $resultado['error'] ?? 'La devolución debía registrarse');
+        $this->assertSame('Perdido', $this->conn->query("SELECT estado_devolucion FROM prestamo_elementos WHERE id=$detalleId")->fetchColumn());
+        $activo = $this->conn->query("SELECT situacion, estado FROM inventario_general WHERE id=$elementoId")->fetch(PDO::FETCH_ASSOC);
+        $this->assertSame('perdido', $activo['situacion']);
+        $this->assertSame('malo', $activo['estado']);
+        $prestamo = $this->conn->query("SELECT estado, estado_devolucion FROM prestamos WHERE id=$prestamoId")->fetch(PDO::FETCH_ASSOC);
+        $this->assertSame('devuelto', $prestamo['estado']);
+        $this->assertSame('Dañado', $prestamo['estado_devolucion']);
+        $this->assertSame(1, (int)$this->conn->query("SELECT COUNT(*) FROM elemento_historial WHERE elemento_id=$elementoId AND tipo_evento='devolucion'")->fetchColumn());
+        $this->assertSame(1, (int)$this->conn->query("SELECT COUNT(*) FROM auditoria WHERE accion='elemento_devuelto' AND entidad_id=$elementoId")->fetchColumn());
+        $this->assertSame(1, (int)$this->conn->query("SELECT COUNT(*) FROM notificaciones WHERE id_usuario=$this->adminId AND titulo='Devolución: Perdido'")->fetchColumn());
+        $this->assertSame(0, (int)$this->conn->query("SELECT COUNT(*) FROM inventario_general WHERE id=$elementoId AND situacion='disponible'")->fetchColumn());
+    }
 }

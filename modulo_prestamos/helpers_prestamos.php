@@ -21,7 +21,7 @@ require_once __DIR__ . '/../modulo_inventario_general/helpers_historial.php';
 
 const ESTADOS_PRESTAMO = ['pendiente', 'aprobado', 'activo', 'devuelto', 'vencido', 'rechazado', 'cancelado', 'extraviado'];
 const ESTADOS_SOLICITUD = ['pendiente', 'aprobada', 'rechazada', 'entregada', 'devuelta', 'cancelada'];
-const ESTADOS_DEVOLUCION = ['Bueno', 'Regular', 'Dañado'];
+const ESTADOS_DEVOLUCION = ['Bueno', 'Regular', 'Dañado', 'Perdido'];
 
 // estados del activo que NO permiten préstamo
 const ESTADOS_NO_PRESTABLES = ['malo', 'dañado', 'fuera de servicio', 'baja', 'mantenimiento'];
@@ -561,7 +561,9 @@ function cancelarPrestamo($conn, $usuarioId, $idPrestamo) {
         $renglones = $items->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($renglones as $r) {
-            $conn->prepare("UPDATE inventario_general SET situacion='disponible' WHERE id=?")->execute([(int)$r['id_elemento']]);
+            $liberar = $conn->prepare("UPDATE inventario_general SET situacion='disponible' WHERE id=? AND situacion='prestado'");
+            $liberar->execute([(int)$r['id_elemento']]);
+            if ($liberar->rowCount() === 0) { continue; }
             registrarEventoHistorial($conn, (int)$r['id_elemento'], 'devolucion',
                 "Préstamo #$idPrestamo cancelado",
                 ['situacion' => 'prestado'], ['situacion' => 'disponible', 'prestamo_id' => (int)$idPrestamo],

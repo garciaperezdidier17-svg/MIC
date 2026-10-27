@@ -1,0 +1,3 @@
+<FilesMatch "^(install|testbd|testbd_struct|test_toma)\.php$">
+    Require ip 127.0.0.1 ::1
+</FilesMatch>

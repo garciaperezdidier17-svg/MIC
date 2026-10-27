@@ -73,6 +73,30 @@ require_once '../includes/sidebar.php';
     <!-- ============================================================ -->
     <?php if (esAdmin()): ?>
     <div class="manual-section">
+        <h2><i class="fas fa-qrcode"></i> Toma Física</h2>
+        <p>Inicie una toma para una sede y ubicación, verifique activos mediante su código o QR y registre coincidencias, novedades y evidencias. El módulo permite gestionar mantenimientos y solicitar bajas; las bajas requieren aprobación administrativa.</p>
+    </div>
+    <div class="manual-section">
+        <h2><i class="fas fa-file-signature"></i> Actas</h2>
+        <p>Genere actas para activos seleccionados y un responsable de la sede. El sistema conserva el documento y registra el evento en el historial.</p>
+    </div>
+    <div class="manual-section">
+        <h2><i class="fas fa-truck"></i> Proveedores</h2>
+        <p>Registre y actualice proveedores, sus datos de contacto y su estado. Los proveedores activos pueden asociarse a bienes adquiridos por compra.</p>
+    </div>
+    <div class="manual-section">
+        <h2><i class="fas fa-file-excel"></i> Importación desde Excel</h2>
+        <p>Suba una plantilla Excel, revise la validación por fila y confirme la importación de filas válidas. El sistema genera códigos y QR, registra el historial y audita la importación.</p>
+    </div>
+    <div class="manual-section">
+        <h2><i class="fas fa-bell"></i> Centro de Alertas</h2>
+        <p>Consulte alertas de inventario y préstamos, incluidos daños, garantías, vida útil, documentación pendiente y fechas de devolución. El período de alerta de garantías se configura desde el módulo.</p>
+    </div>
+    <div class="manual-section">
+        <h2><i class="fas fa-history"></i> Auditoría</h2>
+        <p>Revise las acciones registradas con filtros por usuario, acción, módulo y fechas. El historial de cada elemento también muestra sus movimientos y cambios.</p>
+    </div>
+    <div class="manual-section">
         <h2><i class="fas fa-tachometer-alt"></i> Dashboard / Panel Principal</h2>
         <p>Es la primera pantalla que ve el administrador al iniciar sesión. Proporciona una vista general del estado del inventario unificado.</p>
 
@@ -116,84 +140,12 @@ require_once '../includes/sidebar.php';
     <!-- ============================================================ -->
     <div class="manual-section">
         <h2><i class="fas fa-warehouse"></i> Inventario General</h2>
-        <p>Módulo unificado para administrar TODOS los activos de la institución: equipos de cómputo, periféricos, mobiliario, equipos audiovisuales, material educativo, herramientas, y cualquier otro elemento. Reemplaza los antiguos módulos separados de "Inventario Equipos" e "Inventario General".</p>
-
-        <p><strong>Estructura de la página:</strong></p>
+        <p>Administra activos institucionales en <code>inventario_general</code>, con código interno, categoría, tipo, sede, ubicación, estado, valores, documentos e historial.</p>
         <ul>
-            <li><strong>Título:</strong> "Inventario General" con botón "Agregar Elemento" y "Eliminar Todos".</li>
-            <li><strong>Buscador y filtros:</strong> Barra de búsqueda por nombre, marca, modelo o código. Filtros por Tipo, Estado y Sede.</li>
-            <li><strong>Tabla de elementos:</strong> Cada fila contiene:
-                <ul>
-                    <li><strong>Código:</strong> Código único auto-generado (formato: INST-SEDE-UBICACIÓN-CONSECUTIVO, ej. 20J-01-S001-001).</li>
-                    <li><strong>Nombre:</strong> Nombre descriptivo del elemento.</li>
-                    <li><strong>Tipo:</strong> Tipo específico dentro de la categoría seleccionada.</li>
-                    <li><strong>Especificaciones:</strong> Marca, modelo, procesador, RAM, almacenamiento (si aplica).</li>
-                    <li><strong>Estado:</strong> Indicador de color: azul = nuevo, verde = bueno, amarillo = regular, rojo = malo.</li>
-                    <li><strong>Ubicación/Sede:</strong> Lugar físico y sede donde se encuentra.</li>
-                    <li><strong>VR Comercial:</strong> Valor comercial del elemento.</li>
-                    <li><strong>QR:</strong> Botones para Ver QR, Descargar PNG, Imprimir QR, e Imprimir Etiqueta (solo si el QR fue generado).</li>
-                    <li><strong>Acciones:</strong> Editar (lápiz) y Eliminar (papelera).</li>
-                </ul>
-            </li>
+            <li>Las sedes se consultan desde la base de datos. En el código actual, las opciones de ubicación asociadas a cada sede todavía se cargan desde <code>config/ubicaciones.php</code>; no se describen aquí como si ya provinieran de la tabla <code>ubicaciones</code>.</li>
+            <li>Al crear un elemento, el sistema calcula el código interno y puede generar su QR. Los elementos inactivos permanecen registrados.</li>
+            <li>La disponibilidad para préstamo depende de la marca de préstamo, la situación actual y el estado del elemento.</li>
         </ul>
-
-        <p><strong>Cómo agregar un elemento:</strong></p>
-        <ol>
-            <li>Haga clic en "Agregar Elemento".</li>
-            <li>Ingrese el <strong>Nombre</strong> del elemento (ej. "Portátil Dell", "Silla ergonómica").</li>
-            <li>El <strong>Código</strong> se genera automáticamente al guardar. No puede editarlo.</li>
-            <li>Seleccione la <strong>Categoría</strong> de una lista profesional de 20 opciones (Equipos de Cómputo, Periféricos, Impresión, Redes, Mobiliario, etc.).</li>
-            <li>Al seleccionar la categoría, el campo <strong>Tipo</strong> se llena automáticamente con los tipos disponibles para esa categoría. Si no encuentra el tipo exacto, seleccione "Otro (especifique)" y escríbalo manualmente.</li>
-            <li>Seleccione el <strong>Estado</strong>: Nuevo, Bueno, Regular o Malo. Si el elemento es donado, marque la casilla "Donado / No aplica VR" para ocultar los campos de valor comercial y vida útil.</li>
-            <li>Si el tipo seleccionado es "Computador de escritorio" o "Portátil", aparecerá la sección <strong>Especificaciones Técnicas</strong> donde puede ingresar Marca, Modelo, N° de Serie, Procesador, RAM, Almacenamiento y Accesorios.</li>
-            <li>Seleccione la <strong>Sede</strong> donde se encuentra el elemento.</li>
-            <li>Al seleccionar la sede, el campo <strong>Ubicación</strong> se llena automáticamente con las ubicaciones disponibles para esa sede. Seleccione una de la lista. Si la sede no tiene ubicaciones registradas, se mostrará "No hay ubicaciones disponibles".</li>
-            <li>Ingrese <strong>Vida Útil</strong> (años), <strong>Descripción</strong> y <strong>VR Comercial</strong> si aplica.</li>
-            <li>Presione "Guardar". El sistema generará automáticamente:
-                <ul>
-                    <li>El <strong>código único</strong> del elemento (ej. 20J-01-S001-001).</li>
-                    <li>El <strong>código QR</strong> correspondiente, guardado en el servidor.</li>
-                </ul>
-            </li>
-        </ol>
-
-        <p><strong>Cómo editar un elemento:</strong></p>
-        <ol>
-            <li>Haga clic en el botón "Editar" (icono de lápiz) en la fila del elemento.</li>
-            <li>Se abre el formulario con los datos actuales cargados.</li>
-            <li>El campo <strong>Código</strong> es de solo lectura (se asigna al crear y no puede modificarse).</li>
-            <li>Modifique los campos necesarios.</li>
-            <li>Presione "Guardar Cambios".</li>
-        </ol>
-
-        <p><strong>Cómo eliminar un elemento:</strong></p>
-        <ol>
-            <li>Haga clic en "Eliminar" (icono de papelera).</li>
-            <li>Confirme la acción en la ventana emergente.</li>
-            <li>El elemento se desactiva y desaparece del listado. Se conserva en la base de datos para historial.</li>
-        </ol>
-
-        <p><strong>Código QR y Etiquetas:</strong></p>
-        <ul>
-            <li>Al guardar un elemento nuevo, el sistema genera automáticamente un código QR con el código único.</li>
-            <li>En la columna QR de la tabla encontrará botones para:
-                <ul>
-                    <li><strong>Ver QR:</strong> Abre una ventana modal con el código QR en tamaño grande. Desde allí puede descargarlo o imprimirlo.</li>
-                    <li><strong>Descargar QR:</strong> Descarga la imagen PNG del QR directamente.</li>
-                    <li><strong>Imprimir QR:</strong> Abre una vista de impresión del código QR.</li>
-                    <li><strong>Imprimir Etiqueta:</strong> Abre una página optimizada para impresión con el logo de la institución, nombre, código, QR, nombre del elemento y ubicación.</li>
-                </ul>
-            </li>
-        </ul>
-
-        <p><strong>Catálogos y escalabilidad:</strong></p>
-        <ul>
-            <li>Las <strong>categorías, tipos y estados</strong> se guardan en la base de datos. Desde el formulario de <strong>Agregar Elemento</strong>, el administrador puede crear una opción que no exista con los botones <strong>"+"</strong> junto a Categoría, Tipo y Estado: se abre un pequeño modal, se guarda en la base de datos y el desplegable se actualiza seleccionando automáticamente la opción nueva, sin abandonar el formulario. El archivo <code>config/catalogos_inventario.php</code> solo actúa como respaldo si la base de datos está vacía.</li>
-            <li>Las <strong>ubicaciones por sede</strong> se cargan desde <code>config/ubicaciones.php</code>. Para agregar nuevas ubicaciones o sedes, solo se edita ese archivo.</li>
-            <li>El <strong>código de institución</strong> se configura en <code>config/institucion.php</code>.</li>
-        </ul>
-
-        <div class="nota">El código único sigue el formato: [Institución]-[Sede]-[Ubicación]-[Consecutivo]. Ejemplo: 20J-01-S001-001. El consecutivo se reinicia por cada ubicación.</div>
     </div>
 
     <!-- ============================================================ -->
@@ -202,43 +154,15 @@ require_once '../includes/sidebar.php';
     <?php endif; ?>
     <div class="manual-section">
         <h2><i class="fas fa-clipboard-list"></i> Solicitudes de Préstamo</h2>
-        <p>Los usuarios crean solicitudes para pedir equipos prestados. El administrador las revisa y decide si las aprueba o rechaza.</p>
-
-        <p><strong>Vista del usuario regular:</strong></p>
+        <p>Las solicitudes reúnen varios activos de <code>inventario_general</code>. Quien solicita indica la sede, un responsable de esa sede, el motivo, las fechas y uno o más elementos.</p>
         <ul>
-            <li>Al entrar a "Solicitudes", ve una tabla con sus propias solicitudes: número, equipo, fechas, estado (Pendiente/Aprobada/Rechazada) y observaciones.</li>
-            <li>Botón "Nueva Solicitud" para crear una.</li>
-            <li>Una vez creada, no puede modificarla ni eliminarla. Solo el administrador puede cambiar su estado.</li>
+            <li>Los elementos se agregan en modo individual o por cantidad. La cantidad se valida contra las unidades que estén disponibles.</li>
+            <li>La solicitud queda <strong>Pendiente</strong> hasta que un administrador la apruebe o rechace. Al aprobar, el sistema vuelve a validar la disponibilidad y crea el préstamo con sus elementos.</li>
+            <li>Los estados visibles de solicitud incluyen Pendiente, Aprobada, Rechazada, Entregada, Devuelta y Cancelada.</li>
+            <li>Los administradores registran devoluciones parciales o totales. Por cada elemento indican Bueno, Regular, Dañado o Perdido; el préstamo queda parcialmente devuelto mientras falten elementos y Devuelto al completar la devolución.</li>
+            <li>Los recordatorios de préstamo se procesan para 3 días, 1 día, el día de vencimiento y préstamos vencidos.</li>
         </ul>
-
-        <p><strong>Vista del administrador:</strong></p>
-        <ul>
-            <li>Ve <strong>TODAS</strong> las solicitudes de todos los usuarios.</li>
-            <li>Columnas adicionales: nombre del usuario que la creó y botones de acción.</li>
-            <li>Puede <strong>Aprobar</strong>: cambia el estado a "Aprobada" y crea automáticamente un préstamo activo con los datos de la solicitud. El equipo asociado se marca como "Prestado".</li>
-            <li>Puede <strong>Rechazar</strong>: cambia el estado a "Rechazada". El usuario ve el motivo si se agregó en las observaciones.</li>
-        </ul>
-
-        <p><strong>Cómo crear una solicitud (usuario):</strong></p>
-        <ol>
-            <li>Haga clic en "Nueva Solicitud".</li>
-            <li>Seleccione el <strong>Equipo</strong> de la lista desplegable (solo equipos disponibles).</li>
-            <li>Seleccione la <strong>Sede</strong> donde lo necesita.</li>
-            <li>Elija <strong>Fecha Inicio</strong> y <strong>Fecha Fin</strong> del préstamo deseado.</li>
-            <li>Agregue una <strong>Observación</strong> si es necesario (ej. "Para proyecto de ciencias").</li>
-            <li>Presione "Enviar Solicitud".</li>
-            <li>Espere la respuesta del administrador.</li>
-        </ol>
-
-        <p><strong>Cómo aprobar/rechazar (administrador):</strong></p>
-        <ol>
-            <li>En la tabla de solicitudes, ubique la solicitud pendiente.</li>
-            <li>Haga clic en el botón verde "✔ Aprobar" o rojo "✖ Rechazar".</li>
-            <li>Si aprueba, el sistema crea automáticamente el préstamo. La solicitud cambia a "Aprobada".</li>
-            <li>Si rechaza, la solicitud cambia a "Rechazada". El usuario lo verá en su listado.</li>
-        </ol>
-
-        <div class="paso"><strong>Flujo completo:</strong> Usuario crea solicitud → Administrador la aprueba → Sistema crea préstamo automáticamente → Usuario recibe el equipo → Administrador registra la devolución en Préstamos.</div>
+        <p>La aprobación reserva los activos disponibles; los elementos Perdidos quedan en situación perdida y no vuelven a ofrecerse para préstamo.</p>
     </div>
 
     <!-- ============================================================ -->
@@ -246,44 +170,13 @@ require_once '../includes/sidebar.php';
     <!-- ============================================================ -->
     <div class="manual-section">
         <h2><i class="fas fa-handshake"></i> Préstamos</h2>
-        <p>Gestiona los préstamos activos y finalizados de equipos.</p>
-
-        <p><strong>Vista del usuario regular:</strong></p>
+        <p>El préstamo se genera al aprobar una solicitud. Los administradores consultan y gestionan préstamos con uno o varios elementos; los usuarios consultan los propios.</p>
         <ul>
-            <li>Ve únicamente sus propios préstamos.</li>
-            <li>Columnas: equipo, sede, fechas (inicio y fin), estado (Activo/Finalizado), observaciones.</li>
-            <li>No puede realizar ninguna acción, solo consultar.</li>
+            <li>Los estados incluyen Activo, Vencido, Parcialmente devuelto, Devuelto y Cancelado.</li>
+            <li>Se puede registrar la devolución de algunos elementos y completar el resto después. Cada devolución guarda estado, observaciones y, si se adjunta, evidencia.</li>
+            <li>El estado físico de cada elemento devuelto puede ser Bueno, Regular, Dañado o Perdido. Un elemento Perdido queda marcado como perdido y no disponible.</li>
+            <li>El sistema maneja recordatorios a 3 días, 1 día, el día de vencimiento y cuando el préstamo está vencido.</li>
         </ul>
-
-        <p><strong>Vista del administrador:</strong></p>
-        <ul>
-            <li>Ve <strong>TODOS</strong> los préstamos del sistema.</li>
-            <li>Columnas adicionales: nombre del usuario, equipo, fechas, estado y acciones.</li>
-            <li>Botón "Nuevo Préstamo" para crear uno sin solicitud previa.</li>
-            <li>Puede <strong>Devolver</strong> (marca como finalizado y el equipo vuelve a "Disponible").</li>
-            <li>Puede <strong>Eliminar</strong> (borra el registro del préstamo permanentemente).</li>
-        </ul>
-
-        <p><strong>Cómo crear un préstamo directo (administrador):</strong></p>
-        <ol>
-            <li>Haga clic en "Nuevo Préstamo".</li>
-            <li>Seleccione el <strong>Usuario</strong> que recibe el equipo.</li>
-            <li>Seleccione el <strong>Equipo</strong> (solo disponibles).</li>
-            <li>Seleccione la <strong>Sede</strong>.</li>
-            <li>Defina <strong>Fecha Inicio</strong> y <strong>Fecha Fin</strong>.</li>
-            <li>Agregue <strong>Observaciones</strong> si aplica.</li>
-            <li>Presione "Guardar". El equipo se marca como "Prestado".</li>
-        </ol>
-
-        <p><strong>Cómo registrar una devolución (administrador):</strong></p>
-        <ol>
-            <li>Ubique el préstamo activo en la tabla.</li>
-            <li>Haga clic en "Devolver".</li>
-            <li>El estado del préstamo cambia a "Finalizado".</li>
-            <li>El equipo vuelve a estar "Disponible" para futuros préstamos.</li>
-        </ol>
-
-        <div class="nota">No se puede eliminar un préstamo que ya fue devuelto, solo los que están activos.</div>
     </div>
 
     <!-- ============================================================ -->
